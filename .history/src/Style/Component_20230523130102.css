@@ -1,0 +1,11 @@
+/* Upper Form Component */
+.Index-Upper-Form{
+    width: 100%;
+}
+.Index-Upper-Form .button-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 4px;
+    width: 100%;
+}

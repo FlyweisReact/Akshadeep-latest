@@ -1,0 +1,66 @@
+/**
+ * Upper Form Component
+ *
+ * @format
+ */
+
+.Index-Upper-Form {
+  width: 100%;
+  padding-top: 20px;
+}
+.Index-Upper-Form .button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+.Index-Upper-Form .button-container button {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ffd500;
+  font-size: var(--small-font);
+  cursor: pointer;
+  padding: 10px;
+  width: 20%;
+  font-family: OpenFont;
+  border-radius: 4px;
+  transition: 0.5s;
+}
+.Index-Upper-Form .button-container button:hover {
+  background: #ffd500;
+}
+.Index-Upper-Form .form-cont {
+  width: 100%;
+  margin-top: 10px;
+  background: #00296b;
+  border: 1px solid #333131;
+  box-shadow: 0px 0px 100px 8px rgba(255, 213, 0, 0.3);
+  border-radius: 12px;
+  position: relative;
+  padding: 20px;
+}
+.Index-Upper-Form .form-cont .form-part-1 .two-cont {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.Index-Upper-Form .form-cont .form-part-1 .two-cont div {
+  width: 45%;
+}
+.Index-Upper-Form .form-cont .form-part-1 .two-cont div label {
+  color: var(--white);
+  font-size: var(--small-font);
+  font-family: OpenFont;
+  line-height: 24px;
+  color: #ffffff;
+}
+
+.Index-Upper-Form .form-cont .form-part-1 .two-cont div  select{
+    width: 100%;
+    padding: 5px;
+    outline: none;
+    font-size: var(--small-font);
+    color: #897F7F;
+
+}
