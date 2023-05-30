@@ -1,12 +1,11 @@
+/** @format */
+
 import React from "react";
 import Navbar from "./navbar";
 import { useNavigate } from "react-router-dom";
-import img from "../Images/i.png";
-import img2 from "../Images/card-img.png.png";
 import img3 from "../Images/button_after.png";
 import img4 from "../Images/button_after -1.png";
 import img5 from "../Images/button_after -2.png";
-import img6 from "../Images/section.png";
 import img7 from "../Images/h3_before.png";
 import img8 from "../Images/image.png";
 import img9 from "../Images/span.png";
@@ -25,10 +24,14 @@ const Exchange = () => {
     <>
       <Navbar />
       <div className="exch-cont">
-        <div className="exch-left-cont">
+        <div className="upper_two_sec">
           <h2 className="exch-title">
-            Live US Dollar Exchange Rate (USD/INR) Today in <spam>India</spam>
+            Live US Dollar Exchange Rate (USD/INR) Today <br /> in{" "}
+            <spam>India</spam>
           </h2>
+          <button>See Full Rate Card</button>
+        </div>
+        <div className="exch-left-cont">
           <div className="outer-cont">
             <div className="top-box">
               <div className="top-part-1">
@@ -44,10 +47,11 @@ const Exchange = () => {
                   </small>
                 </div>
                 <div className="top-right">
-                  <a>ADD PRODUCT</a>
+                  <p>ADD PRODUCT</p>
                 </div>
               </div>
               <h3 className="exch-mid-txt">Request Better Rate</h3>
+
               <div className="exch-mid-cont">
                 <div className="exch-mid-cont-l">
                   <div className="inside-comp">
@@ -65,13 +69,15 @@ const Exchange = () => {
                   </p>
                 </div>
               </div>
+
               <button
                 className="top-box-btn"
-                onClick={() => navigate("/customer-det")}
+                onClick={() => navigate("/Transaction-Details-2")}
               >
                 BOOK THIS ORDER
               </button>
             </div>
+
             <div className="btn-box">
               <button style={{ backgroundColor: "#FFD500" }}>BUY FOREX</button>
               <button>SELL FOREX</button>
@@ -79,29 +85,83 @@ const Exchange = () => {
               <button>FOREX CARD</button>
               <button>TRAVEL INS.</button>
             </div>
+
             <div className="out-btn-box">
               <div className="btn-img">
-                <button className="bt-img">REQUEST CALLBACK</button>
                 <img src={img3} alt="" />
+                <button className="bt-img">REQUEST CALLBACK</button>
               </div>
+
               <div className="btn-img">
-                <button className="bt-img">SET A RATE ALERT</button>
                 <img src={img4} alt="" />
+                <button className="bt-img">SET A RATE ALERT</button>
               </div>
+
               <div className="btn-img">
-                <button className="bt-img">BETTER RATE REQUEST</button>
                 <img src={img5} alt="" />
+                <button className="bt-img">BETTER RATE REQUEST</button>
               </div>
             </div>
           </div>
         </div>
-        <div className="exch-right-cont">
-          <button className="exch-btn">See Full Rate Card</button>
-        </div>
       </div>
-      <div className="body-mid-cont">
-        <img className="body-mid-cont-img" src={img6} alt="" />
+
+      <div className="Currency_Exchange">
+        <p className="head">
+          Convert USD to INR Online as per Today’s Conversion Rate
+        </p>
+        <p className="desc">
+          Our online currency converter is showing you the value of 1 US Dollar
+          in Indian Rupees according to the current foreign exchange rate'of INR
+          82.84. Today i.e.Friday 17/02/2023 , for 1 US Dollar you get 82.84
+          Indian Rupees. Change in USD to INR rate from previous day is +0.1%.
+          Moreover, we have also added the table of the most popular USD to INR
+          conversions and historical charts for current, weekly and monthly USD
+          to INR rates.
+        </p>
+        <p className="desc">
+          With Loren Ipsum'currency calculator, you can convert US Dollar to
+          Indian Rupee at best exchange rates. Our US Dollar to INR rates is
+          LIVE and accurate to the last second. We update the rates every 3
+          seconds. Loren ipsum.com allows you to check the rates which are
+          interbank rates. Interbank rates are the same rates that you see on
+          search engines. You won't be able to do better currency conversion
+          anywhere else. Loren Ipsum offers the 'most updated and unbeatable
+          exchange rates to its customers.
+        </p>
+
+        <p className="head">
+          How Can I Convert Dollar (USD) to Rupee (INR) in India?{" "}
+        </p>
+        <p className="desc">
+          There are multiple ways to convert USD to INR in India. The
+          traditional approach of doing so involved going to banks. You stand in
+          the queue and wait for your turn. This was not only time consuming but
+          pretty frustrating and even after all the effort, you end up paying a
+          high cost. The second way was to search for a money changer where the
+          first check is whether they have the desired USD or not.
+        </p>
+        <p className="desc">
+          With that starts the long process of rate haggling and being surprised
+          that you are not getting the rate you saw in business news channels.
+          The third way was to do it at Airport; however, people realized that
+          the cost to exchange USD to INR was way higher and charges were
+          exorbitantly high at airports.
+        </p>
+        <p className="desc">
+          The smarter, faster and most economical way which is now being used by
+          millions is using the online forex marketplace Loren ipsum. We only
+          deal with RBI authorized money changers, and hence you can trust us
+          completely. Be smart to book the live rates from the comfort of your
+          home with Loren ipsum and get more money for your USD exchange.
+        </p>
+        <p className="desc">
+          As an online foreign exchange marketplace, Loren ipsum provides the
+          best USD to INR conversion in contrast to traditional alternatives,
+          such as banks and local authorized money changers.
+        </p>
       </div>
+
       <div className="exch-below-cont">
         <div className="faltu">
           <img src={img7} alt="" />
@@ -242,7 +302,7 @@ const Exchange = () => {
               check below to get more details and other facts about the
               currency.
             </p>
-            <a href="">More info</a>
+            <a href="/">More info</a>
           </div>
           <div className="exch-below-cont-4-r">
             <div className="faltu">
@@ -254,7 +314,7 @@ const Exchange = () => {
               check below to get more details and other facts about the
               currency.
             </p>
-            <a href="">More info</a>
+            <a href="/">More info</a>
           </div>
         </div>
       </div>
@@ -262,31 +322,33 @@ const Exchange = () => {
         <div className="extra-comp">
           <div className="exch-grid">
             <div className="exch-grid-item">
-              <a href="">Convert NZD to INR</a>
+              <a href="/">Convert NZD to INR</a>
             </div>
             <div className="exch-grid-item">
-              <a href="">Convert NZD to INR</a>
+              <a href="/">Convert NZD to INR</a>
             </div>
             <div className="exch-grid-item">
-              <a href="">Convert NZD to INR</a>
+              <a href="/">Convert NZD to INR</a>
             </div>
             <div className="exch-grid-item">
-              <a href="">Convert NZD to INR</a>
+              <a href="/">Convert NZD to INR</a>
             </div>
             <div className="exch-grid-item">
-              <a href="">Convert NZD to INR</a>
+              <a href="/">Convert NZD to INR</a>
             </div>
             <div className="exch-grid-item">
-              <a href="">Convert NZD to INR</a>
+              <a href="/">Convert NZD to INR</a>
             </div>
           </div>
         </div>
       </div>
+
       <div className="exch-below-cont-6">
         <div className="exch-below-cont-6-1">
           <h4>US Dollars Rates In Other Cities</h4>
           <img src={img9} alt="" />
         </div>
+
         <div className="form-group-2">
           <select className="ip" id="timezone" name="timezone" required>
             <option value="">Select City</option>
@@ -298,6 +360,7 @@ const Exchange = () => {
             <option value="PST">Banglore</option>
           </select>
         </div>
+
         <div className="exch-below-6-last">
           <img src={img10} alt="" />
           <img src={img11} alt="" />
