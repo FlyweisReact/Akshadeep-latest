@@ -1,0 +1,17 @@
+/** @format */
+
+@media screen and (min-width: 780px) and (max-width: 1500px) {
+  
+}
+
+@media screen and (min-width: 600px) and (max-width: 980px) {
+ .Drop-Category-Bar  .right-Container{
+    display: none;
+    /* overflow: scroll; */
+ }
+}
+@media screen and (min-width: 300px) and (max-width: 620px) {
+  body{
+    display: none;
+  }
+}

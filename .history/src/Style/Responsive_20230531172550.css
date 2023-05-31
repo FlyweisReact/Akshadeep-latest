@@ -1,0 +1,16 @@
+/** @format */
+
+@media screen and (min-width: 780px) and (max-width: 1500px) {
+  
+}
+
+@media screen and (min-width: 600px) and (max-width: 980px) {
+  body{
+    display: none;
+  }
+}
+@media screen and (min-width: 300px) and (max-width: 500px) {
+  body{
+    display: none;
+  }
+}

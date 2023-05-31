@@ -1,0 +1,25 @@
+/** @format */
+.Drop-Category-Bar .right-Container .Expolre_Btn{
+    
+}
+
+@media screen and (min-width: 780px) and (max-width: 1500px) {
+}
+
+@media screen and (min-width: 600px) and (max-width: 980px) {
+  .Drop-Category-Bar .right-Container #dropdown-basic {
+    display: none;
+  }
+  .Offcanvas-Menu .Menu-Items {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+  .Offcanvas-Menu .Menu-Items div {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 300px) and (max-width: 620px) {
+  body {
+    display: none;
+  }
+}

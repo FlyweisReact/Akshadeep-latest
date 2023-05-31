@@ -115,7 +115,6 @@ const Exchange = () => {
           Convert USD to INR Online as per Today’s Conversion Rate
           </p>
         </div>
-
      </div>
 
 
