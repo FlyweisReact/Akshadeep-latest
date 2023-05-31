@@ -26,9 +26,6 @@
 }
 
 @media screen and (min-width: 600px) and (max-width: 980px) {
-  .Drop-Category-Bar .right-Container .Expolre_Btn{
-    display: block ;
-  }
   .Drop-Category-Bar {
     justify-content: space-between;
   }
