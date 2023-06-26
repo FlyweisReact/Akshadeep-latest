@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import img from "../Images/i.png";
 import img1 from "../Images/32.png";
@@ -8,16 +8,293 @@ import img2 from "../Images/33.png";
 import img7 from "../Images/h3_before.png";
 import img8 from "../Images/image.png";
 import Footer from "../components/Layout/footer";
+import axios from "axios";
+import { Modal, Form, Button } from "react-bootstrap";
+import BookOrderModal from "../components/Modals/BookOrderModal";
 
 const CurrencyConvertor = () => {
+  const [bookord, setBookord] = useState(false);
+  const [amount, setAmount] = useState("");
+  const [convertedAmt, setConvertedAmt] = useState("0");
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
+
+  const [currency1, setCurrency1] = useState("");
+  const [currency2, setCurrency2] = useState("");
+  const [product, setProduct] = useState("");
+  const [forexAmt, setForex] = useState("");
+  const [inrAmt, setInr] = useState("0");
+
+  const handleConversion = async () => {
+    const url = `https://akashdeep12.vercel.app/betterRate/convertRate/USD/${amount}`;
+    try {
+      const res = await axios.get(url);
+      console.log(res?.data?.inrAmount);
+      setConvertedAmt(res?.data?.inrAmount);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const [currencyt, setCurrency] = useState([]);
+  const [cityt, setCity] = useState([]);
+
+  const getCurrency = async () => {
+    const url = "https://akashdeep12.vercel.app/currency/currencies";
+    try {
+      const res = await axios.get(url);
+      console.log(res?.data);
+      setCurrency(res?.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const getCity = async () => {
+    const url = "https://akashdeep12.vercel.app/selectcity/cities";
+    try {
+      const res = await axios.get(url);
+      console.log(res?.data);
+      setCity(res?.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleChange = (e) => {
+    setAmount(e.target.value);
+    handleConversion();
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
+    getCurrency();
+    getCity();
   }, []);
+
+  const handleConversionAmt = async (amt) => {
+    setForex(amt);
+    const url = `https://akashdeep12.vercel.app/foriegncurrency/convert`;
+    try {
+      const res = await axios.post(url, {
+        fromCurrency: currency1,
+        toCurrency: currency2,
+        amount: amt,
+      });
+      console.log(res?.data);
+      setInr(res?.data?.convertedAmount);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  function MyVerticallyCenteredModal(props) {
+    const [fullname, setName] = useState("");
+    const [phoneNumber, setMobile] = useState("");
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const url = "https://akashdeep12.vercel.app/call/request-callback";
+      try {
+        const res = await axios.post(url, {
+          fullname,
+          phoneNumber,
+        });
+        console.log(res?.data);
+        alert("Call back requested !");
+      } catch (err) {
+        alert(err.response.data.message);
+      }
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Request callback
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={(e) => setMobile(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              variant="outline-success"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
+  function MyVerticallyCenteredModal2(props) {
+    const [alert, setAlert] = useState("");
+    const [currency, setCurrencyt] = useState("");
+    const [product, setProduct] = useState("");
+    const [city, setCityt] = useState("");
+    const [isBetterThan, setIsBetter] = useState("");
+    const [emailAt, setEmail] = useState("");
+    const [call_sms, setCall] = useState("");
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      const url = "https://akashdeep12.vercel.app/alert/alerts";
+      try {
+        const res = await axios.post(url, {
+          alert,
+          currency,
+          product,
+          city,
+          isBetterThan,
+          emailAt,
+          call_sms,
+        });
+        console.log(res?.data);
+        alert("AAGYa idharr");
+        alert("Alert Set Up successfully !");
+      } catch (err) {
+        alert(err.response.data.message);
+      }
+    };
+
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Set Alert
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formSelect">
+              <Form.Label>Alert Me When</Form.Label>
+              <Form.Control
+                as="select"
+                onChange={(e) => setAlert(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="buying rate">Buying Rate</option>
+                <option value="selling rate">Selling Rate</option>
+                <option value="remittance rate">Remittance Rate</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formSelect">
+              <Form.Label>Currency</Form.Label>
+              <Form.Control
+                as="select"
+                onChange={(e) => setCurrencyt(e.target.value)}
+              >
+                <option value="">Select</option>
+                {currencyt?.map((ele, i) => (
+                  <option value={ele?.addcurrency}>{ele?.addcurrency}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formSelect">
+              <Form.Label>Product</Form.Label>
+              <Form.Control
+                as="select"
+                onChange={(e) => setProduct(e.target.value)}
+              >
+                <option value="">Select</option>
+                <option value="currency notes">Currency Notes</option>
+                <option value="forex card">Forex Card</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group controlId="formSelect">
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                as="select"
+                onChange={(e) => setCityt(e.target.value)}
+              >
+                <option value="">Select</option>
+                {cityt?.map((ele, i) => (
+                  <option value={ele?.selectcity}>{ele?.selectcity}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Is Better Than</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={(e) => setIsBetter(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Email me at</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Call/Sms me at</Form.Label>
+              <Form.Control
+                type="text"
+                onChange={(e) => setCall(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              variant="outline-success"
+              type="submit"
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
+  const handleBookOrder = async (e) => {
+    e.preventDefault();
+    const url = "https://akashdeep12.vercel.app/bookthisorderr1";
+    try {
+      const res = await axios.post(url, {
+        currencyYouHave: currency1,
+        currencyYouWant: currency2,
+        product,
+        Amount: forexAmt, convertedAmt: inrAmt
+      });
+      console.log(res?.data);
+      alert("Order Booked Successfully!");
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <>
       <Header />
-
+      <MyVerticallyCenteredModal show={show} onHide={() => setShow(false)} />
+      <MyVerticallyCenteredModal2 show={show2} onHide={() => setShow2(false)} />
+      <BookOrderModal show={bookord} onHide={() => setBookord(false)} />
       <div className="Currency_Convertor">
         <div className="left_container">
           <p className="Head">USD to INR Currency Converter with Live Rate</p>
@@ -30,7 +307,11 @@ const CurrencyConvertor = () => {
             </p>
             <div className="two_Div">
               <div className="item">
-                <input type="number" placeholder="Enter USD Amount" />
+                <input
+                  type="number"
+                  placeholder="Enter Foreign Amount"
+                  onChange={handleChange}
+                />
                 <div className="two">
                   <img src={img} alt="" />
                   <p>US Dollar</p>
@@ -39,7 +320,7 @@ const CurrencyConvertor = () => {
 
               <img src={img1} alt="" className="convertorImg" />
               <div className="item">
-                <input type="number" placeholder="Enter INR Amount" />
+                <input type="number" placeholder={convertedAmt} />
                 <div className="two">
                   <img
                     src={
@@ -69,32 +350,48 @@ const CurrencyConvertor = () => {
                     <div className="two-cont">
                       <div>
                         <label>Currency you have </label>
-                        <select>
-                          <option>Indian Rupee</option>
+                        <select onChange={(e) => setCurrency1(e.target.value)}>
+                          <option>Select</option>
+                          {currencyt?.map((ele, i) => (
+                            <option value={ele?.addcurrency}>
+                              {ele?.addcurrency}
+                            </option>
+                          ))}
                         </select>
                       </div>
 
                       <div>
                         <label>Currency you want</label>
-                        <select>
-                          <option>US Dollar</option>
+                        <select onChange={(e) => setCurrency2(e.target.value)}>
+                          <option>Select</option>
+                          {currencyt?.map((ele, i) => (
+                            <option value={ele?.addcurrency}>
+                              {ele?.addcurrency}
+                            </option>
+                          ))}
                         </select>
                       </div>
                     </div>
 
                     <div className="two-cont mt-3">
                       <div style={{ width: "100%" }}>
-                        <select>
-                          <option>Forex Card</option>
+                        <select onChange={(e) => setProduct(e.target.value)}>
+                          <option value="">Select</option>
+                          <option value="forex card">Forex Card</option>
+                          <option value="Cash currency">Cash Currency</option>
                         </select>
                       </div>
                     </div>
                     <div className="two-cont mt-3">
                       <div>
-                        <input type="number" placeholder="Forex Amount" />
+                        <input
+                          type="number"
+                          placeholder="Forex Amount"
+                          onChange={(e) => handleConversionAmt(e.target.value)}
+                        />
                       </div>
                       <div>
-                        <input type="number" placeholder="INR Amount" />
+                        <input type="number" placeholder={inrAmt} />
                       </div>
                     </div>
                     <p className="rate">Rate 82.80</p>
@@ -109,17 +406,26 @@ const CurrencyConvertor = () => {
                     </div>
                     <p className="rate mb-3" style={{ textAlign: "center" }}>
                       {" "}
-                      Total Amount: <strong>0.00 INR </strong>{" "}
+                      Total Amount:{" "}
+                      <strong>
+                        {inrAmt} {currency2}{" "}
+                      </strong>{" "}
                     </p>
                   </div>
-                  <button className="ord-btn">Book this order</button>
+                  <button
+                    className="ord-btn"
+                    type="button"
+                    onClick={handleBookOrder}
+                  >
+                    Book this order
+                  </button>
                 </div>
               </form>
             </div>
 
             <div className="buttons">
-              <button>Request Call Back</button>
-              <button>Set Rate Alert</button>
+              <button onClick={() => setShow(true)}>Request Call Back</button>
+              <button onClick={() => setShow2(true)}>Set Rate Alert</button>
             </div>
           </div>
         </div>

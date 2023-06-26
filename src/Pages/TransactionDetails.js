@@ -7,11 +7,48 @@ import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
+import axios from "axios";
 
 const TransactionDetails = () => {
   const [step, setStep] = useState(2);
   const navigate = useNavigate();
 
+  /* remitter data */
+  const [remitter_id, setRemitterId] = useState("");
+  const [purpose, setPurpose] = useState("");
+  const [account_number, setAccNum] = useState("");
+  const [ifsc, setIfsc] = useState("");
+  const [pan, setPan] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [postal_code, setPostal] = useState("");
+  const [phone_number, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [education_loan, setEducationLoan] = useState(false);
+  const [nationality, setNationality] = useState("");
+  const [bank_code, setBank] = useState("");
+
+  /* beneficiary data */
+
+  const [beneficiary_id, setBenId] = useState("");
+  const [account_holder_name, setAccount] = useState("");
+  const [account_number2, setAccountNumber] = useState("");
+  const [swift_code, setSwiftCode] = useState("");
+  const [iban, setIban] = useState("");
+  const [routing_number, setRoutingNumber] = useState("");
+  const [bank_name, setBankName] = useState("");
+  const [bank_country, setBankCountry] = useState("");
+  const [bank_address, setBankAddress] = useState("");
+  const [sort_code, setSortCode] = useState("");
+  const [transit_code, setTransitCode] = useState("");
+  const [bsb_number, setBsbNumber] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [city2, setCity2] = useState("");
+  const [state2, setState2] = useState("");
+  const [country, setCountry] = useState("");
+  const [postal_code2, setPostalCode] = useState("");
   const data = [
     " Order Details",
     "Transaction Detail ",
@@ -22,14 +59,54 @@ const TransactionDetails = () => {
   ];
 
   useEffect(() => {
-    window.scrollTo(0,0)
-  },[])
+    window.scrollTo(0, 0);
+  }, []);
 
-  function NextStep() {
-    setStep(step + 1)
-    window.scrollTo(0,0)
+  async function NextStep() {
+    console.log(step);
+    if (step === 3) {
+      const url = "https://akashdeep12.vercel.app/remi";
+      try {
+        const { data } = await axios.post(url, {
+          remitter_id,
+          purpose,
+          account_number,
+          ifsc,
+          pan,
+          name,
+          address,
+          city,
+          state,
+          postal_code,
+          phone_number,
+          email,
+          education_loan,
+          nationality,
+          bank_code,
+        });
+        console.log(data);
+        //setStep(step + 1);
+      } catch (err) {
+        console.log(err?.message);
+      }
+    }
+    if(step===4){
+      const url = "https://akashdeep12.vercel.app/bene";
+      const url2 = "http://192.168.101.19:2004/bene";
+      try{
+        const res = await axios.post(url, {
+          beneficiary_id, account_holder_name, account_number:account_number2, 
+          swift_code, iban, routing_number, bank_name, bank_country, bank_address, sort_code, transit_code,
+          bsb_number, address:address2, city:city2, state:state2, country, postal_code:postal_code2
+        })
+        console.log(res?.data);
+      }catch(err){
+        console.log(err.message);
+      }
+    }
+    setStep(step + 1);
+    window.scrollTo(0, 0);
   }
-
 
   return (
     <>
@@ -106,10 +183,7 @@ const TransactionDetails = () => {
             <button>Validate PAN</button>
           </div>
 
-          <button
-            className="transaction_center_btn"
-            onClick={() => NextStep()}
-          >
+          <button className="transaction_center_btn" onClick={() => NextStep()}>
             Continue
           </button>
         </>
@@ -129,72 +203,91 @@ const TransactionDetails = () => {
 
             <div className="four_sec mb-3">
               <div className="first">
-                <p>First Name:</p>
-                <input type="text" placeholder="Write first Name" />
+                <p>Name:</p>
+                <input
+                  type="text"
+                  placeholder="Write first Name"
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
               <div className="first">
-                <p>Middle Name:</p>
-                <input type="text" placeholder="Write Middle Name" />
+                <p>Remittance Id</p>
+                <input
+                  type="text"
+                  onChange={(e) => setRemitterId(e.target.value)}
+                  placeholder="Write Middle Name"
+                />
               </div>
               <div className="first">
-                <p>Last Name:</p>
-                <input type="text" placeholder="Write Last Name" />
+                <p>Purpose</p>
+                <input
+                  type="text"
+                  onChange={(e) => setPurpose(e.target.value)}
+                  placeholder="Write Last Name"
+                />
               </div>
             </div>
 
             <div className="four_sec mb-3">
               <div className="first">
-                <p>Date of Birth</p>
-                <input type="date" />
+                <p>Account Number</p>
+                <input
+                  type="text"
+                  onChange={(e) => setAccNum(e.target.value)}
+                />
               </div>
               <div className="first">
-                <p>Gender</p>
-                <select>
-                  <option>-- Select Gender --</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
+                <p>IFSC</p>
+                <input type="text" onChange={(e) => setIfsc(e.target.value)} />
               </div>
               <div className="first"></div>
             </div>
 
-            <p className="sub_head">Permanent Address</p>
-
             <div className="two_sec mb-3">
               <div>
-                <p>Address Line 1</p>
-                <textarea />
+                <p>PAN</p>
+                <input
+                  type="text"
+                  onChange={(e) => setPan(e.target.value)}
+                  style={{ width: "700px", height: "60px" }}
+                />
               </div>
               <div>
-                <p>Address Line 2</p>
-                <textarea />
+                <p>Address</p>
+                <textarea onChange={(e) => setAddress(e.target.value)} />
               </div>
             </div>
 
             <div className="four_sec mb-3">
               <div className="first">
-                <p>Pin Code</p>
-                <input type="date" />
+                <p>Postal Code</p>
+                <input
+                  type="text"
+                  onChange={(e) => setPostal(e.target.value)}
+                />
               </div>
               <div className="first">
                 <p>City</p>
-                <select>
+                <select onChange={(e) => setCity(e.target.value)}>
                   <option>-- Select City --</option>
+                  <option value="delhi">Delhi</option>
                 </select>
               </div>
               <div className="first">
                 <p>State</p>
-                <select>
+                <select onChange={(e) => setState(e.target.value)}>
                   <option>-- Select State --</option>
+                  <option value="delhi">Delhi</option>
                 </select>
               </div>
             </div>
 
             <div className="four_sec mb-3">
               <div className="first">
-                <p>Country</p>
-                <select>
-                  <option>-- Select Country --</option>
+                <p>Nationality</p>
+                <select onChange={(e) => setNationality(e.target.value)}>
+                  <option>-- Select Nationality --</option>
+                  <option value="IN">India</option>
                 </select>
               </div>
               <div className="first"></div>
@@ -202,27 +295,38 @@ const TransactionDetails = () => {
             </div>
 
             <div className="four_sec mb-3">
+              <div className="first">
+                <p>Bank Code</p>
+                <input
+                  type="text"
+                  onChange={(e) => setBank(e.target.value)}
+                  placeholder="Enter bank code"
+                />
+              </div>
               <div className="first">
                 <p>Email ID</p>
-                <input type="email" placeholder="Enter Email ID" />
-              </div>
-              <div className="first special">
-                <p>Mobile</p>
-                <PhoneInput country={"in"} />
+                <input
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter Email ID"
+                />
               </div>
               <div className="first">
-                <p>Customer Residential Status</p>
-                <select>
-                  <option> Select </option>
-                </select>
+                <p>Mobile</p>
+                <input
+                  type="text"
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Write your phone number"
+                />
+                {/*<PhoneInput
+                  country={"in"}
+                  onChange={(e) => setPhone(e.target.value)}
+                />*/}
               </div>
             </div>
           </div>
 
-          <button
-            className="transaction_center_btn"
-             onClick={() => NextStep()}
-          >
+          <button className="transaction_center_btn" onClick={() => NextStep()}>
             Continue
           </button>
         </>
@@ -236,66 +340,67 @@ const TransactionDetails = () => {
           <div className="transaction_details">
             <p className="head">Beneficiaries Details </p>
 
-            <div className="Radio_Div">
-              <p>Is Existing Beneficiary</p>
-              <div className="two">
-                <div>
-                  <input type="radio" name="fav_language" />
-                  <p>Yes</p>
-                </div>
-                <div>
-                  <input type="radio" name="fav_language" />
-                  <p>No</p>
-                </div>
-              </div>
-            </div>
-
             <div className="four_sec mb-3">
               <div className="first">
-                <p>Beneficiary Type</p>
-                <select>
-                  <option>Select</option>
-                </select>
+                <p>Beneficiary Id</p>
+                <input type="text" onChange={(e)=>setBenId(e.target.value)}/>
               </div>
               <div className="first">
-                <p>Receiver Name</p>
-                <input type="text" />
+                <p>Account holder Name</p>
+                <input type="text" onChange={(e)=>setAccount(e.target.value)}/>
               </div>
               <div className="first">
-                <p>Receiver Nick Name</p>
-                <input type="text" />
+                <p>Sort Code</p>
+                <input type="text" onChange={(e)=>setSortCode(e.target.value)} />
+              </div>
+              <div className="first">
+                <p>Transit Code</p>
+                <input type="text" onChange={(e)=>setTransitCode(e.target.value)}/>
+              </div>
+              <div className="first">
+                <p>Bsb Number</p>
+                <input type="text" onChange={(e)=>setBsbNumber(e.target.value)}/>
+              </div>
+              <div className="first">
+                <p>Routing Number</p>
+                <input type="text" onChange={(e)=>setRoutingNumber(e.target.value)} />
+              </div>
+              <div className="first">
+                <p>Iban</p>
+                <input type="text" onChange={(e)=>setIban(e.target.value)}/>
               </div>
             </div>
 
             <div className="Input_Text mb-3">
               <div className="main">
                 <p>Receiver Address</p>
-                <textarea />
+                <textarea onChange={(e)=>setAddress2(e.target.value)} />
               </div>
 
               <div className="main">
                 <div className="item mb-3">
                   <div>
                     <p>Country</p>
-                    <select>
+                    <select onChange={(e)=>setCountry(e.target.value)}>
                       <option>Select</option>
+                      <option value="US">USA</option>
                     </select>
                   </div>
 
                   <div>
                     <p>Pincode/ Zip code</p>
-                    <input />
+                    <input onChange={(e)=>setPostalCode(e.target.value)}/>
                   </div>
                 </div>
                 <div className="item">
                   <div>
-                    <p>Contact Number</p>
-                    <input type="text" />
+                    <p>State</p>
+                    <input type="text" onChange={(e)=>setState2(e.target.value)}/>
                   </div>
 
                   <div>
                     <p>Email ID</p>
-                    <input type="email" />
+                    <input type="email" onChange={(e)=>setEmail(e.target.value)} />
                   </div>
                 </div>
               </div>
@@ -304,49 +409,43 @@ const TransactionDetails = () => {
             <div className="four_sec mb-3">
               <div className="first">
                 <p>Receiver Bank Name</p>
-                <input type="text" />
+                <input type="text" onChange={(e)=>setBankName(e.target.value)} />
               </div>
               <div className="first">
                 <p>Receiver Bank Country</p>
-                <input type="text" />
+                <input type="text" onChange={(e)=>setBankCountry(e.target.value)} />
               </div>
               <div className="first">
                 <p>Receiver Bank Swift Code</p>
-                <input type="text" />
+                <input type="text" onChange={(e)=>setSwiftCode(e.target.value)} />
               </div>
             </div>
 
             <div className="two_sec mb-3">
               <div>
                 <p>Receiver Bank Address 1</p>
-                <textarea />
+                <textarea onChange={(e)=>setBankAddress(e.target.value)} />
               </div>
               <div>
                 <p>Receiver Bank Address 2</p>
-                <textarea />
+                <textarea onChange={(e)=>setBankAddress(e.target.value)}/>
               </div>
             </div>
 
             <div className="four_sec mb-3">
-              <div className="first">
-                <p>Currency</p>
-                <select>
-                  <option>Select</option>
-                </select>
-              </div>
               <div className="first special">
                 <p>Receiver Account number </p>
-                <input type="text" />
+                <input type="text" onChange={(e)=>setAccountNumber(e.target.value)} />
               </div>
-              <div className="first">
-                <p>Re-enter account number</p>
-                <input type="text" />
+              <div className="first special">
+                <p>City </p>
+                <input type="text" onChange={(e)=>setCity2(e.target.value)} />
               </div>
             </div>
 
             <div className="last_btn">
               <button className="btn">Clear</button>
-              <button  onClick={() => NextStep()}>Submit</button>
+              <button onClick={() => NextStep()}>Submit</button>
             </div>
           </div>
         </>
@@ -449,10 +548,7 @@ const TransactionDetails = () => {
             </div>
           </div>
 
-          <button
-            className="transaction_center_btn"
-             onClick={() => NextStep()}
-          >
+          <button className="transaction_center_btn" onClick={() => NextStep()}>
             Continue
           </button>
         </>

@@ -3,9 +3,14 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import OtpModal from "./OtpModal";
+import axios from "axios";
 
 function RegisterModal(props) {
   const [otpModalShow, setOtpModalShow] = useState(false);
+
+  const [fullName, setFName] = useState("");
+  const [phoneNumber, setPhone]= useState("");
+  const [email, setEmail] = useState("");
 
   const LoginHandler = async (e) => {
     e.preventDefault();
@@ -16,6 +21,20 @@ function RegisterModal(props) {
       console.log(e);
     }
   };
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    const url = "https://akashdeep12.vercel.app/user/users";
+    try{
+      const res = await axios.post(url, {fullName, phoneNumber, email});
+      console.log(res?.data);
+      alert(res?.data?.user?.otp);
+      setOtpModalShow(true);
+    }catch(err){
+      console.log(err.message);
+      alert(err?.response?.data?.message);
+    }
+  }
 
   return (
     <>
@@ -36,20 +55,25 @@ function RegisterModal(props) {
               <input
                 type="text"
                 placeholder="Enter your Full Name here"
+                onChange = {(e)=>setFName(e.target.value)}
                 required
               />
             </div>
 
             <div className="Form_Group mb-3">
               <p>Mobile Number</p>
-              <input type="text" placeholder="Enter Mobile Number" required />
+              <input type="text" placeholder="Enter Mobile Number" 
+                onChange={(e)=>setPhone(e.target.value)}
+              required />
             </div>
             <div className="Form_Group">
               <p>Email</p>
-              <input type="email" placeholder="Enter Email Here" required />
+              <input type="email" placeholder="Enter Email Here"
+                onChange = {(e)=>setEmail(e.target.value)}
+                required />
             </div>
 
-            <button type="submit" className="submit_btn">
+            <button type="submit" className="submit_btn" onClick={handleSubmit}>
               Continue
             </button>
 

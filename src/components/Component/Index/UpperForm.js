@@ -1,8 +1,76 @@
 /** @format */
 
-import React from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 
 const UpperForm = () => {
+  const [city, setCity] = useState([]);
+  const [currency, setCurrency] = useState([]);
+  const [forexAmount, setForexAmt] = useState(0);
+  const [selectcity, setSelectCity] = useState("");
+  const [selectcurrency, setSelectCurrency] = useState("");
+  const [innerAmt, setInnerAmt] = useState("");
+
+  const getCities = async()=>{
+    const url = "https://akashdeep12.vercel.app/selectcity/cities";
+    try{
+      const res = await axios.get(url);
+      console.log(res?.data);
+      setCity(res?.data);
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+  const getCurrencies = async()=>{
+    const url = "https://akashdeep12.vercel.app/currency/currencies";
+    try{
+      const res= await axios.get(url);
+      console.log(res?.data);
+      setCurrency(res?.data);
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+
+  const getConvertRate = async(amt)=>{
+    console.log(selectcurrency);
+    setForexAmt(amt);
+    const url = `https://akashdeep12.vercel.app/betterRate/convertRate/${selectcurrency}/${amt}`;
+    console.log(url);
+    try{
+      const res = await axios.get(url);
+      console.log(res?.data?.inrAmount);
+      setInnerAmt(res?.data?.inrAmount);
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+
+  const handleConvert = (e)=>{
+    setForexAmt(e.target.value);
+    console.log(currency);
+    getConvertRate();
+  }
+
+  const handleBook = async(e)=>{
+    e.preventDefault();
+    const url = "https://akashdeep12.vercel.app/bookthisorder/bookthisorder";
+    try{
+      const res = await axios.post(url,{
+        selectcity, selectcurrency, forexAmount
+      })
+      console.log(res?.data);
+      alert("Order booked");
+    }catch(err){
+      console.log(err.message);
+    }
+  }
+
+  useEffect(()=>{
+    getCities();
+    getCurrencies();
+  },[])
+  console.log(innerAmt);
   return (
     <>
       <div className="Index-Upper-Form">
@@ -18,15 +86,25 @@ const UpperForm = () => {
               <div className="two-cont">
                 <div>
                   <label>Select City</label>
-                  <select>
+                  <select onChange={(e)=>setSelectCity(e.target.value)}>
                     <option>Select City</option>
+                    {
+                      city?.map((ele,i)=>(
+                        <option value={ele?.selectcity}>{ele?.selectcity}</option>
+                      ))
+                    }
                   </select>
                 </div>
 
                 <div>
                   <label>Select Currency</label>
-                  <select>
+                  <select onChange={(e)=>setSelectCurrency(e.target.value)}>
                     <option>Select Currency</option>
+                    {
+                      currency?.map((ele,i)=>(
+                        <option value={ele?.addcurrency}>{ele?.addcurrency}</option>
+                      ))
+                    }
                   </select>
                 </div>
               </div>
@@ -34,11 +112,13 @@ const UpperForm = () => {
               <div className="two-cont">
                 <div>
                   <label>Enter Forex Amount</label>
-                  <input type="number" placeholder="Forex Amount" />
+                  <input type="number" placeholder="Forex Amount" 
+                    onChange={(e)=>getConvertRate(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <label>Enter INR Amount</label>
-                  <input type="number" placeholder="INR Amount" />
+                  <label>Converted INR Amount</label>
+                  <input type="number" placeholder={innerAmt} />
                 </div>
               </div>
 
@@ -60,10 +140,10 @@ const UpperForm = () => {
                 className="rate"
                 style={{ margin: "0", fontSize: "21px", paddingLeft: "20px" }}
               >
-                <i className="fa-solid fa-indian-rupee-sign"></i> 0.00
+                <i className="fa-solid fa-indian-rupee-sign"></i>{innerAmt}
               </p>
             </div>
-            <button className="ord-btn">Book this order</button>
+            <button className="ord-btn" onClick={handleBook}>Book this order</button>
           </div>
         </form>
       </div>
