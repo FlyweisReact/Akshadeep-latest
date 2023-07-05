@@ -28,29 +28,31 @@ const Sidebar = ({ show, setShow }) => {
             </Link>
           </div>
           <div>
-            <img src={img} alt="" />
-            <p>Foreign Currency</p>
+            <Link to="/Foreign-Currency">
+              <img src={img} alt="" />
+              <p>Foreign Currency</p>
+            </Link>
           </div>
           <div>
-            <Link to="/Foreign-Currency">
+            <Link to="/Remittance">
               <img src={img2} alt="" />
               <p>Prepaid Travel Card</p>
             </Link>
           </div>
           <div>
-            <Link to="/Educational-Loans">
+            <Link to="/Demand-Draft">
               <img src={img3} alt="" />
               <p>Foreign Demand draft</p>
             </Link>
           </div>
           <div>
-            <Link to="/Remittance">
+            <Link to="/travel">
               <img src={img4} alt="" />
               <p>Travel insurance</p>
             </Link>
           </div>
           <div>
-            <Link to="/travel">
+            <Link to="/Educational-Loans">
               <img src={img5} alt="" />
               <p>Education Loan</p>
             </Link>

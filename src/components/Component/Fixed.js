@@ -15,4 +15,4 @@ const Fixed = () => {
   )
 }
 
-export default Fixed
+export default Fixed;

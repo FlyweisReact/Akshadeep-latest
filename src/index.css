@@ -1308,21 +1308,21 @@ input[type="radio"]:checked + label {
 .carousel1 {
   background-image: url("./Images/a-46.png");
   background-size: cover;
-  height: 600px;
+  height: 1000px;
   width: 100%;
   background-repeat: no-repeat;
 }
 .carousel2 {
   background-image: url("./Images/a-47.png");
   background-size: cover;
-  height: 600px;
+  height: 1000px;
   width: 100%;
   background-repeat: no-repeat;
 }
 .carousel3 {
   background-image: url("./Images/a-48.png");
   background-size: cover;
-  height: 600px;
+  height: 1000px;
   width: 100%;
   background-repeat: no-repeat;
 }
@@ -1497,3 +1497,41 @@ font-size: 18px;
 .fc {
   color: #39579a;
 }
+
+
+/* ====== bank details styling =========*/
+
+.bank1{
+  margin-top:40px;
+  margin-left:5%;
+  width:90%;
+}
+.bank2{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns: auto auto auto;
+  gap:30px;
+}
+.bank3{
+  display:flex;
+  flex-direction: column;
+}
+
+/* ===== travelling styling ======*/
+
+.travel1{
+  margin-top:40px;
+  margin-left:5%;
+  width:90%;
+}
+.travel2{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns: auto auto auto;
+  gap:40px;
+}
+.travel3{
+  display:flex;
+  flex-direction: column;
+}
+

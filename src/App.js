@@ -15,6 +15,11 @@ import Rate from "./Pages/Rate";
 import ForeignCurrency from "./Pages/ForeignCurrency";
 import EducationalLoans from "./Pages/EducationalLoans";
 import TransactionDetails from "./Pages/TransactionDetails";
+import TransactionDetail3 from "./Pages/Transaction-details3";
+import TransactionDetail4 from "./Pages/TransactionDetails4";
+import TransactionDetail5 from "./Pages/TransactionDetail5";
+import TransactionDetail6 from "./Pages/TransactionDetail6";
+import DemandDraft from "./Pages/DemandDraft";
 import CashFree from "./Pages/CashFree";
 import Travel from "./Pages/Travel";
 import "react-notifications-component/dist/theme.css";
@@ -51,6 +56,11 @@ function App() {
           <Route path="/rate" element={<Rate />} />
           <Route path="/Cash-free" element={<CashFree />} />
           <Route path="/order-history" element={<OrderHistory />} />
+          <Route path="/Transaction-Details-3" element={<TransactionDetail3 />} />
+          <Route path="/Transaction-Details-4" element={<TransactionDetail4 />} />
+          <Route path="/Transaction-Details-5" element={<TransactionDetail5 />} />
+          <Route path="/Transaction-Details-6" element={<TransactionDetail6 />} />
+          <Route path="/Demand-Draft" element={<DemandDraft />} />
         </Routes>
       </BrowserRouter>
     </>

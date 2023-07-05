@@ -58,10 +58,46 @@ const UpperForm = () => {
     }
   }
 
+  const [currencyt, setCurrencyt] = useState([]);
+  const [fromCurrency, setFromCurr] = useState("");
+  const [toCurrency, setToCurr] = useState("");
+
+
+  const getCurrencies = async () => {
+    const url = "https://akashdeep12.vercel.app/currency/currencies";
+    try {
+      const res = await axios.get(url);
+      //console.log("log", res?.data);
+      setCurrencyt(res?.data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   useEffect(()=>{
     getCities();
     getOptions();
+    getCurrencies();
   },[])
+
+  const [inrAmt, setInrAmt] = useState("0");
+  const [forexAmt, setForexAmt] = useState("0");
+  const [selectcurrency, setSelectCurrency] = useState("");
+  const getConvertRate = async(amt)=>{
+    //console.log(selectcurrency);
+    if(amt==="") amt = 0;
+    setForexAmt(amt);
+    console.log(amt);
+    const url = `https://akashdeep12.vercel.app/betterRate/convertRate/${selectcurrency}/${amt}`;
+    console.log(url);
+    try{
+      const res = await axios.get(url);
+      console.log(res?.data?.inrAmount);
+      setInrAmt(res?.data?.inrAmount);
+    }catch(err){
+      console.log(err.message);
+    }
+  }
 
   const purpose = [
     {
@@ -142,7 +178,7 @@ const UpperForm = () => {
           <div className="form-part-1">
             <div className="two-cont" style={{ display: "block" }}>
               <div style={{ width: "100%" }} className="mb-3">
-                <label>Select The City You're Located In</label>
+                <label>Transfer From</label>
                 <select onChange={(e)=>setCitys(e.target.value)}>
                   <option>Select City</option>
                   {
@@ -154,7 +190,7 @@ const UpperForm = () => {
               </div>
 
               <div className="mb-3" style={{ width: "100%" }}>
-                <label>Please select the option that best describes you</label>
+                <label>Transfer To</label>
                 <select onChange={(e)=>setOptionBestDescribeYou(e.target.value)}>
                   <option>
                     Please select the option that best describes you
@@ -167,29 +203,7 @@ const UpperForm = () => {
                 </select>
               </div>
             </div>
-
-            <div className="two-cont mb-3">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Organization/ Individual name"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <input type="number" placeholder="Enter Phone Number"
-                  onChange={(e)=>setMobile(e.target.value)}
-                />
-              </div>
-            </div>
-
             <div className="two-cont" style={{ display: "block" }}>
-              <div style={{ width: "100%" }} className="mb-3">
-                <input type="email" placeholder="Enter Email"
-                  onChange={(e)=>setEmail(e.target.value)}
-                />
-              </div>
-
               <div className="mb-3" style={{ width: "100%" }}>
                 <label>Purpose</label>
                 <select onChange={(e)=>setMonthlyImp_Exp(e.target.value)}>
@@ -202,12 +216,51 @@ const UpperForm = () => {
                 </select>
               </div>
             </div>
+            <div className="two-cont mb-3">
+              <div>
+                <select onChange={(e)=>setSelectCurrency(e.target.value)}>
+                  <option value="">Receiving Currency</option>
+                  {
+                      currencyt?.map((ele,i)=>(
+                        <option style={{color:"#00000"}} value={ele?.addcurrency}>
+                          {ele?.addcurrency}</option>
+                      ))
+                  }
+                </select>
+              </div>
+              <div>
+              <select>
+                  <option value="">INR Currency</option>
+                  {/*
+                      currencyt?.map((ele,i)=>(
+                        <option style={{color:"#00000"}} value={ele?.addcurrency}>
+                          {ele?.addcurrency}</option>
+                      ))*/
+                  }
+                </select>
+              </div>
+            </div>
+            <div className="two-cont mb-3">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Recieving Amount"
+                  onChange={(e) => getConvertRate(e.target.value)}
+                />
+              </div>
+              <div>
+                <input type="number" placeholder={inrAmt}
+                  onChange={(e)=>setMobile(e.target.value)}
+                />
+              </div>
+            </div>
+            
           </div>
           <button
             className="ord-btn"
             onClick={handleSubmit}
           >
-            Sign Up
+            Book Order
           </button>
         </div>
       </form>

@@ -24,7 +24,7 @@ const Remittance = () => {
     window.scrollTo(0, 0);
     Store.addNotification({
       title: "",
-      message: "This Service is only available in PAN INDIA",
+      message: "This Service is available in PAN INDIA",
       type: "info",
       insert: "top",
       container: "top-right",

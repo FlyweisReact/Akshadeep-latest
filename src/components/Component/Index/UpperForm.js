@@ -2,14 +2,26 @@
 
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const UpperForm = () => {
+
+  const navigate = useNavigate();
+
   const [city, setCity] = useState([]);
   const [currency, setCurrency] = useState([]);
   const [forexAmount, setForexAmt] = useState(0);
   const [selectcity, setSelectCity] = useState("");
   const [selectcurrency, setSelectCurrency] = useState("");
   const [innerAmt, setInnerAmt] = useState("");
+
+  const [option, setOption] = useState("1");
+
+  const handleClick = ()=>{
+    if(option === "1") navigate("/Transaction-Details-3");
+    else if(option === "2") navigate("/Transaction-Details-e");
+    else navigate("/Transaction-Details-4");
+  }
 
   const getCities = async()=>{
     const url = "https://akashdeep12.vercel.app/selectcity/cities";
@@ -75,9 +87,9 @@ const UpperForm = () => {
     <>
       <div className="Index-Upper-Form">
         <div class="button-container">
-          <button autoFocus>BUY</button>
-          <button>RELOAD</button>
-          <button>UNLOAD</button>
+          <button autoFocus onClick={()=>setOption("1")}>BUY</button>
+          <button onClick={()=>setOption("2")}>RELOAD</button>
+          <button onClick={()=>setOption("3")}>UNLOAD</button>
         </div>
 
         <form>
@@ -143,7 +155,7 @@ const UpperForm = () => {
                 <i className="fa-solid fa-indian-rupee-sign"></i>{innerAmt}
               </p>
             </div>
-            <button className="ord-btn" onClick={handleBook}>Book this order</button>
+            <button className="ord-btn" onClick={handleClick}>Book this order</button>
           </div>
         </form>
       </div>

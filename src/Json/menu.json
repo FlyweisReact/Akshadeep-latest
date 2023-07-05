@@ -93,7 +93,7 @@
   },
 
   {
-    "name": "Top Currencies",
+    "name": "Foreign Currencies",
     "item": [
       {
         "name": "US Dollar",
@@ -142,52 +142,15 @@
   },
 
   {
-    "name": "Currency Converter",
-    "item": [
-      {
-        "name": " USD to INR" , 
-        "link" : "/currency-convertor"
-      },
-      {
-        "name": "EUR to INR ", 
-        "link" : "/currency-convertor"
-      },
-      {
-        "name": "GBP to INR ", 
-        "link" : "/currency-convertor"
-      },
-      {
-        "name": "AUD to INR ", 
-        "link" : "/currency-convertor"
-      },
-      {
-        "name": "CAD to INR "
-      },
-      {
-        "name": " SGD to INR"
-      },
-      {
-        "name": " NZD to INR"
-      },
-      {
-        "name": "HKD to INR "
-      },
-      {
-        "name": "AED to INR"
-      },
-      {
-        "name": " SAD to INR"
-      },
-      {
-        "name": " CHF to INR"
-      }
-    ]
-  },
-
-  {
     "name": "FAQ"
   },
   {
     "name": "Offers"
+  },
+  {
+    "name":"Contact Us"
+  },
+  {
+    "name":"About Us"
   }
 ]

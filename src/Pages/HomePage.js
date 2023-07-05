@@ -47,7 +47,7 @@ const HomePage = () => {
           <UpperForm />
         </div>
         <div className="right-component">
-        <UpperSlider />
+          <UpperSlider />
         </div>
       </div>
 

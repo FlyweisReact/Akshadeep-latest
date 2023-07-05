@@ -26,7 +26,7 @@ const Travel = () => {
   const navigate = useNavigate();
   const [citys, setCitys] = useState([]);
   const [currencyt, setCurrencyt] = useState([]);
-  
+
   /* ==== fields for travel form ==== */
 
   const [destination, setDestination] = useState("");
@@ -263,19 +263,22 @@ const Travel = () => {
     );
   }
 
-  const handleTravelClick = async(e)=>{
+  const handleTravelClick = async (e) => {
     e.preventDefault();
     const url = "https://akashdeep12.vercel.app/travelInsurance";
-    try{
+    try {
       const res = await axios.post(url, {
-        destination, ageOfTraveller, startDate, endDate
-      })
+        destination,
+        ageOfTraveller,
+        startDate,
+        endDate,
+      });
       console.log(res?.data);
       navigate("/thanks");
-    }catch(err){
+    } catch (err) {
       console.log(err.message);
     }
-  }
+  };
 
   return (
     <>
@@ -301,10 +304,10 @@ const Travel = () => {
           <div className="carousel3"></div>
         </Carousel>
 
-        <div className="main6-form-cont">
+        <div className="main6-form-cont" style={{ height: "700px" }}>
           <div className="mb-3">
-            <p>Destination</p>
-            <select onChange={(e)=>setDestination(e.target.value)}>
+            <p style={{ fontSize: "20px" }}>Destination</p>
+            <select onChange={(e) => setDestination(e.target.value)}>
               <option>Select</option>
               {citys?.map((ele, i) => (
                 <option value={ele?.selectcity}>{ele?.selectcity}</option>
@@ -312,22 +315,85 @@ const Travel = () => {
             </select>
           </div>
           <div className="mb-3">
-            <p>AGE OF TRAVELLER(S)</p>
+            <p style={{ fontSize: "20px" }}>AGE OF TRAVELLER(S)</p>
             <div className="two-sec_container">
-              <input type="text"  onChange={(e)=>setAge(e.target.value)} />
+              <input type="text" onChange={(e) => setAge(e.target.value)} />
               <button>Add Member</button>
             </div>
           </div>
           <div className="mb-3">
-            <p>TRIP START DATE</p>
+            <p style={{ fontSize: "20px" }}>TRIP START DATE</p>
             <div className="two-sec">
-              <input type="date" onChange={(e)=>setStartDate(e.target.value)}/>
-              <input type="date" onChange={(e)=>setEndDate(e.target.value)}/>
+              <input
+                type="date"
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <input type="date" onChange={(e) => setEndDate(e.target.value)} />
             </div>
           </div>
-
-          <button className="latBtn" onClick={handleTravelClick} >
-            Continue
+          <div
+            className="mb-3"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <div>
+              <p style={{ fontSize: "20px" }}>Pan Card Number</p>
+              <input type="text" />
+            </div>
+            <div>
+              <p style={{ fontSize: "20px" }}>Pan Card Upload</p>
+              <input type="file" style={{ width: "100%" }} />
+            </div>
+          </div>
+          <div
+            className="mb-3"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <div>
+              <p style={{ fontSize: "20px" }}>Ticket Number</p>
+              <input type="text" />
+            </div>
+            <div>
+              <p style={{ fontSize: "20px" }}>Ticket Upload</p>
+              <input type="file" style={{ width: "100%" }} />
+            </div>
+          </div>
+          <div
+            className="mb-3"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <div>
+              <p style={{ fontSize: "20px" }}>PassPort Number</p>
+              <input type="text" />
+            </div>
+            <div>
+              <p style={{ fontSize: "20px" }}>PassPort Upload</p>
+              <input type="file" style={{ width: "100%" }} />
+            </div>
+          </div>
+          <div
+            className="mb-3"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <div>
+              <p style={{ fontSize: "20px" }}>Visa</p>
+              <input type="text" />
+            </div>
+            <div>
+              <p style={{ fontSize: "20px" }}>Visa Upload</p>
+              <input type="file" style={{ width: "100%" }} />
+            </div>
+          </div>
+          <div
+            className="mb-3"
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <div>
+              <p style={{ fontSize: "20px" }}>Insurance Amount Fill</p>
+              <input type="text" />
+            </div>
+          </div>
+          <button className="latBtn" onClick={()=>navigate("/thanks")}>
+            Submit
           </button>
         </div>
       </div>

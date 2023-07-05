@@ -24,7 +24,7 @@ import { Store } from "react-notifications-component";
 
 import BookOrderModal from "./PopupModals/BookOrderModal";
 
-const ForeignCurrency = () => {
+const DemandDraft = () => {
   const navigate = useNavigate();
   const [citys, setCitys] = useState([]);
   const [currencyt, setCurrencyt] = useState([]);
@@ -475,7 +475,7 @@ const ForeignCurrency = () => {
             </div>
             <div className="row1">
               <div className="col1">
-                <input placeholder="Forex Card" type="text" />
+                <input placeholder="Demand Draft" type="text" />
               </div>
               <div className="col1">
                 <input placeholder="Entered  Amount" type="text" onChange={(e)=>handleConversion(e.target.value)}/>
@@ -601,4 +601,4 @@ const ForeignCurrency = () => {
   );
 };
 
-export default ForeignCurrency;
+export default DemandDraft;
