@@ -1,13 +1,15 @@
+/** @format */
+
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import { Store } from "react-notifications-component";
-import { useNavigate } from "react-router-dom";
+import DraftOtp from "./DraftOtp";
 
-function BookOtp(props) {
+function BookOrderDraft(props) {
   const [otpModalShow, setOtpModalShow] = useState(false);
   const [mobile, setMobile] = useState("");
-  const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,6 +52,7 @@ function BookOtp(props) {
 
   return (
     <>
+    <DraftOtp show={otpModalShow} onHide={()=>setOtpModalShow(false)} />
       <Modal
         {...props}
         size="lg"
@@ -60,17 +63,17 @@ function BookOtp(props) {
         <Modal.Body className="Login_Modal">
           <form onSubmit={handleSubmit}>
             <div className="Form_Group">
-              <p>Enter Otp</p>
+              <p>Mobile Number/ Email Id</p>
               <input
                 type="text"
-                placeholder="Enter Otp"
+                placeholder="Enter Mobile No. / Email ID"
                 onChange={(e) => setMobile(e.target.value)}
+                required
               />
             </div>
-            <button type="submit" className="submit_btn" onClick={()=>navigate("/Transaction-Details-5")}>
+            <button type="submit" className="submit_btn" onClick={()=>setOtpModalShow(true)}>
               Continue
             </button>
-
           </form>
         
         </Modal.Body>
@@ -79,4 +82,5 @@ function BookOtp(props) {
   );
 }
 
-export default BookOtp;
+export default BookOrderDraft;
+

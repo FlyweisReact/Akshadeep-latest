@@ -22,7 +22,7 @@ import axios from "axios";
 import { Modal, Form, Button } from "react-bootstrap";
 import { Store } from "react-notifications-component";
 
-import BookOrderModal from "./PopupModals/BookOrderModal";
+import BookOrderDraft from "./PopupModals/BookOrderDraft";
 
 const DemandDraft = () => {
   const navigate = useNavigate();
@@ -37,8 +37,8 @@ const DemandDraft = () => {
     const url = "https://akashdeep12.vercel.app/selectcity/cities";
     try {
       const res = await axios.get(url);
-      console.log(res?.data);
-      setCitys(res?.data);
+      console.log(res?.data?.data);
+      setCitys(res?.data?.data);
     } catch (err) {
       console.log(err.message);
     }
@@ -420,7 +420,7 @@ const DemandDraft = () => {
 
   return (
     <>
-      <BookOrderModal show={loginst} onHide={() => setLoginSt(false)} />
+      <BookOrderDraft show={loginst} onHide={() => setLoginSt(false)} />
       <Header />
       <Fixed />
       <MyVerticallyCenteredModal

@@ -45,7 +45,7 @@ function App() {
           <Route path="/Foreign-Currency" element={<ForeignCurrency />} />
           <Route path="/Educational-Loans" element={<EducationalLoans />} />
           <Route path="/Remittance" element={<HomePage />} />
-          <Route path="/Transaction-Details" element={<TransactionDetails />} />
+          <Route path="/Transaction-Details/:id" element={<TransactionDetails />} />
           <Route path="/travel" element={<Travel />} />
           <Route path="/exchange" element={<Exchange />} />
           <Route path="/Transaction-Details-2" element={<Transaction />} />

@@ -19,7 +19,7 @@ const UpperForm = () => {
 
   const handleClick = ()=>{
     if(option === "1") navigate("/Transaction-Details-3");
-    else if(option === "2") navigate("/Transaction-Details-e");
+    else if(option === "2") navigate("/Transaction-Details-3");
     else navigate("/Transaction-Details-4");
   }
 
@@ -27,8 +27,8 @@ const UpperForm = () => {
     const url = "https://akashdeep12.vercel.app/selectcity/cities";
     try{
       const res = await axios.get(url);
-      console.log(res?.data);
-      setCity(res?.data);
+      console.log(res?.data?.data);
+      setCity(res?.data?.data);
     }catch(err){
       console.log(err.message);
     }

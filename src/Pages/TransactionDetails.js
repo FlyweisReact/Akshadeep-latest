@@ -5,13 +5,20 @@ import Header from "../components/Layout/Header";
 import img from "../Images/30.png";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { notification } from "antd";
 import axios from "axios";
 
 const TransactionDetails = () => {
   const [step, setStep] = useState(2);
   const navigate = useNavigate();
+
+  const {id} = useParams();
+  console.log(id);
+
+  const [panNum, setPanNum] = useState("");
+  const [nameRec, setNameRec] = useState("");
+  const [status, setStatus] = useState("");
 
   /* remitter data */
   const [remitter_id, setRemitterId] = useState("");
@@ -108,6 +115,18 @@ const TransactionDetails = () => {
     window.scrollTo(0, 0);
   }
 
+  const validatePin = async()=>{
+    const url = `https://akashdeep12.vercel.app/wireTransferr/pan/${id}`;
+    try{
+      const res = await axios.put(url, {
+        pan:panNum
+      })
+      console.log(res);
+    }catch(e){
+      console.log(e);
+    }
+  }
+
   return (
     <>
       <Header />
@@ -165,7 +184,7 @@ const TransactionDetails = () => {
                 <p>
                   Pan Card <i className="fa-solid fa-exclamation"></i>
                 </p>
-                <input type="text" />
+                <input type="text" onChange={(e)=>setPanNum(e.target.value)}/>
               </div>
               <div className="second">
                 <p>Name Received from NSDL</p>
@@ -180,7 +199,7 @@ const TransactionDetails = () => {
               </div>
             </div>
 
-            <button>Validate PAN</button>
+            <button onClick={validatePin}>Validate PAN</button>
           </div>
 
           <button className="transaction_center_btn" onClick={() => NextStep()}>
@@ -244,14 +263,14 @@ const TransactionDetails = () => {
             </div>
 
             <div className="two_sec mb-3">
-              <div>
+              {/* <div>
                 <p>PAN</p>
                 <input
                   type="text"
                   onChange={(e) => setPan(e.target.value)}
                   style={{ width: "700px", height: "60px" }}
                 />
-              </div>
+              </div> */}
               <div>
                 <p>Address</p>
                 <textarea onChange={(e) => setAddress(e.target.value)} />
@@ -349,6 +368,14 @@ const TransactionDetails = () => {
                 <p>Account holder Name</p>
                 <input type="text" onChange={(e)=>setAccount(e.target.value)}/>
               </div>
+              <div className="first">
+                    <p>Country</p>
+                    <select onChange={(e)=>setCountry(e.target.value)}>
+                      <option>Select</option>
+                      <option value="US">USA</option>
+                    </select>
+              </div>
+              
               <div className="first">
                 <p>Sort Code</p>
                 <input type="text" onChange={(e)=>setSortCode(e.target.value)} />

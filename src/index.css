@@ -1535,3 +1535,48 @@ font-size: 18px;
   flex-direction: column;
 }
 
+
+/* ========= pdf comversion ==========*/
+
+.pdf1{
+  margin-top:40px;
+  margin-left:5%;
+  width:90%;
+}
+.pdf2{
+  display:flex;
+  justify-content: right;
+}
+.pdf2 img{
+  width:100px;
+  height:40px;
+
+}
+.pdf3{
+  margin-top:40px;
+}
+.pdf3 table{
+  width:100%;
+  border:1px solid black;
+}
+.pdf3 table thead{
+  border:1px solid black;
+  width: 100%;
+}
+.pdf3 table th{
+  height:40px;
+}
+.pdf3 table td{
+  height:30px;
+  border:1px solid black;
+}
+.pdf4{
+  display:block;
+  margin:auto;
+  margin-top:30px;
+  background:yellow;
+  border:none;
+  height:40px;
+  width:300px;
+  border-radius: 20px;
+}

@@ -15,13 +15,22 @@ const UpperForm = () => {
   const [email, setEmail] = useState("");
   const [monthlyImport_Export, setMonthlyImp_Exp] = useState("");
 
+  /* ========== Transfer Styling ============ */
+
+  const [tranferFrom, setTransferFrom] = useState("");
+  const [transferTo, setTransferTo] = useState("");
+  const [purposeName, setPurpose] = useState("");
+  const [receivingCurrencyName, setReceivingCurrency] = useState("");
+  const [INRCurrencyName, setINRCurrency] = useState("");
+  const [receivingAmount, setReceivingAmt] = useState("");
+
 
   const getCities = async()=>{
     const url = "https://akashdeep12.vercel.app/selectcity/cities";
     try{
       const res = await axios.get(url);
-      console.log(res?.data);
-      setCity(res?.data);
+      console.log( res?.data?.data);
+      setCity(res?.data?.data);
     }catch(err){
       console.log(err.message);
     }
@@ -42,25 +51,22 @@ const UpperForm = () => {
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
-    const url = "https://akashdeep12.vercel.app/remittance/remittances";
+    const url = "https://akashdeep12.vercel.app/wireTransferr";
     try{
-      const res = await axios.post(url, {city, optionBestDescribeYou, name, mobile, email, 
-        purpose:monthlyImport_Export
+      const res = await axios.post(url, {tranferFrom, transferTo, purposeName, receivingCurrencyName, INRCurrencyName, 
+        receivingAmount
       })
-      console.log(monthlyImport_Export);
       console.log(res?.data);
       if(monthlyImport_Export === "S1107"){
         navigate("/cash-free");
       }
-      else navigate("/Transaction-Details");
+      //else navigate(`/Transaction-Details/${res?.data?.data?._id}`);
     }catch(err){
       console.log(err.message);
     }
   }
 
   const [currencyt, setCurrencyt] = useState([]);
-  const [fromCurrency, setFromCurr] = useState("");
-  const [toCurrency, setToCurr] = useState("");
 
 
   const getCurrencies = async () => {
@@ -83,12 +89,14 @@ const UpperForm = () => {
   const [inrAmt, setInrAmt] = useState("0");
   const [forexAmt, setForexAmt] = useState("0");
   const [selectcurrency, setSelectCurrency] = useState("");
+
   const getConvertRate = async(amt)=>{
     //console.log(selectcurrency);
     if(amt==="") amt = 0;
     setForexAmt(amt);
+    setReceivingAmt(amt);
     console.log(amt);
-    const url = `https://akashdeep12.vercel.app/betterRate/convertRate/${selectcurrency}/${amt}`;
+    const url = `https://akashdeep12.vercel.app/betterRate/convertRate/${receivingCurrencyName}/${amt}`;
     console.log(url);
     try{
       const res = await axios.get(url);
@@ -99,7 +107,7 @@ const UpperForm = () => {
     }
   }
 
-  const purpose = [
+  const purposes = [
     {
       description: "Education Abroad",
       code: "S1107",
@@ -179,7 +187,7 @@ const UpperForm = () => {
             <div className="two-cont" style={{ display: "block" }}>
               <div style={{ width: "100%" }} className="mb-3">
                 <label>Transfer From</label>
-                <select onChange={(e)=>setCitys(e.target.value)}>
+                <select onChange={(e)=>setTransferFrom(e.target.value)}>
                   <option>Select City</option>
                   {
                     cities?.map((ele,i)=>(
@@ -191,13 +199,13 @@ const UpperForm = () => {
 
               <div className="mb-3" style={{ width: "100%" }}>
                 <label>Transfer To</label>
-                <select onChange={(e)=>setOptionBestDescribeYou(e.target.value)}>
+                <select onChange={(e)=>setTransferTo(e.target.value)}>
                   <option>
                     Please select the option that best describes you
                   </option>
                   {
-                    options?.map((ele,i)=>(
-                      <option value={ele?._id}>{ele?.optionBestDescribe?.[0]}</option>
+                    cities?.map((ele,i)=>(
+                      <option value={ele?._id}>{ele?.selectcity}</option>
                     ))
                   }
                 </select>
@@ -206,10 +214,10 @@ const UpperForm = () => {
             <div className="two-cont" style={{ display: "block" }}>
               <div className="mb-3" style={{ width: "100%" }}>
                 <label>Purpose</label>
-                <select onChange={(e)=>setMonthlyImp_Exp(e.target.value)}>
+                <select onChange={(e)=>setPurpose(e.target.value)}>
                   <option value="">Select</option>
                   {
-                    purpose?.map((ele,i)=>(
+                    purposes?.map((ele,i)=>(
                       <option key={i} value={ele?.code}>{ele?.description}</option>
                     ))
                   }
@@ -218,7 +226,7 @@ const UpperForm = () => {
             </div>
             <div className="two-cont mb-3">
               <div>
-                <select onChange={(e)=>setSelectCurrency(e.target.value)}>
+                <select onChange={(e)=>setReceivingCurrency(e.target.value)}>
                   <option value="">Receiving Currency</option>
                   {
                       currencyt?.map((ele,i)=>(
@@ -229,8 +237,8 @@ const UpperForm = () => {
                 </select>
               </div>
               <div>
-              <select>
-                  <option value="">INR Currency</option>
+              <select onClick={(e)=>setINRCurrency(e.target.value)}>
+                  <option value="INR">INR Currency</option>
                   {/*
                       currencyt?.map((ele,i)=>(
                         <option style={{color:"#00000"}} value={ele?.addcurrency}>

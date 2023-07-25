@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import img from "../Images/30.png";
-import img2 from "../Images/rectangle-341.png";
+import img2 from "../Images/logo.png";
 import img3 from "../Images/uploadimg.png";
 import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
 import axios from "axios";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  PDFViewer,
+  Image,
+} from "@react-pdf/renderer";
+import html2pdf from "html2pdf.js";
 
 const TransactionDetail6 = () => {
   const [step, setStep] = useState(2);
@@ -49,7 +59,7 @@ const TransactionDetail6 = () => {
   const [state2, setState2] = useState("");
   const [country, setCountry] = useState("");
   const [postal_code2, setPostalCode] = useState("");
-  const data = [" Order Details", "Document Details","Challan Copy"];
+  const data = [" Order Details", "Document Details", "Challan Copy"];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -115,6 +125,47 @@ const TransactionDetail6 = () => {
     window.scrollTo(0, 0);
   }
 
+  const styles = StyleSheet.create({
+    page: {
+      flexDirection: "column",
+      padding: 20,
+    },
+    header: {
+      marginBottom: 20,
+    },
+    title: {
+      fontSize: 20,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    tableContainer: {
+      flexDirection: "column",
+    },
+    tableRow: {
+      flexDirection: "row",
+      marginBottom: 10,
+    },
+    columnHeader: {
+      flex: 1,
+      fontWeight: "bold",
+      borderBottomWidth: 1,
+      borderBottomColor: "black",
+      borderBottomStyle: "solid",
+      padding: 5,
+    },
+    columnCell: {
+      flex: 1,
+      padding: 5,
+    },
+  });
+
+  const generatePdf = ()=>{
+    console.log("pdf hits");
+    const element = document.getElementById('pdfcont');
+    html2pdf().from(element).save('myPDF.pdf');
+  }
+
+
   return (
     <>
       <Header />
@@ -166,30 +217,30 @@ const TransactionDetail6 = () => {
           <div className="travel1">
             <h3>Passenger Details</h3>
             <div className="travel2">
-                <div className="travel3">
-                    <label>Are you Applicant or Remitter</label>
-                    <select>
-                        <option value="">Select</option>
-                        <option value="applicant">Applicant</option>
-                        <option value="remitter">Remitter</option>
-                    </select>
-                </div>
-                <div className="travel3">
-                    <label>PAN Card Number</label>
-                    <input type="text" />
-                </div>
-                <div className="travel3">
-                    <label>Upload PanCard</label>
-                    <input type="file" />
-                </div>
-                <div className="travel3">
-                    <label>Supporting Document Name</label>
-                    <input type="text" />
-                </div>
-                <div className="travel3">
-                    <label>Supporting Document Upload</label>
-                    <input type="file" />
-                </div>
+              <div className="travel3">
+                <label>Are you Applicant or Remitter</label>
+                <select>
+                  <option value="">Select</option>
+                  <option value="applicant">Applicant</option>
+                  <option value="remitter">Remitter</option>
+                </select>
+              </div>
+              <div className="travel3">
+                <label>PAN Card Number</label>
+                <input type="text" />
+              </div>
+              <div className="travel3">
+                <label>Upload PanCard</label>
+                <input type="file" />
+              </div>
+              <div className="travel3">
+                <label>Supporting Document Name</label>
+                <input type="text" />
+              </div>
+              <div className="travel3">
+                <label>Supporting Document Upload</label>
+                <input type="file" />
+              </div>
             </div>
             <br />
             <br />
@@ -208,82 +259,87 @@ const TransactionDetail6 = () => {
 
       {step === 3 ? (
         <>
-          <div className="transaction_details">
-            <>
-              <div className="form-3-cont mt-5">
-                <div className="form-3-cont-below">
-                  <h3>Documents Required</h3>
-                  <div className="form-grp-2-below-cont">
-                    <div className="form-item">
-                      <div className="potn1-l">
-                        <img src={img2} alt="" />
-                      </div>
-
-                      <div className="portn1-r">
-                        <p className="portp">Pan Card</p>
-                        <div className="portn1-r-bot">
-                          <button className="portn-btn">
-                            Upload
-                            <img src={img3} alt="" />
-                          </button>
-                          <p>view_file</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="form-item">
-                      <div className="potn1-l">
-                        <img src={img2} alt="" />
-                      </div>
-                      <div className="portn1-r">
-                        <p className="portp">Passport (Front Side)</p>
-                        <div className="portn1-r-bot">
-                          <button className="portn-btn">
-                            Upload
-                            <img src={img3} alt="" />
-                          </button>
-                          <p>view_file</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="form-item">
-                      <div className="potn1-l">
-                        <img src={img2} alt="" />
-                      </div>
-                      <div className="portn1-r">
-                        <p className="portp">Passport (Back Side)</p>
-                        <div className="portn1-r-bot">
-                          <button className="portn-btn">
-                            Upload
-                            <img src={img3} alt="" />
-                          </button>
-                          <p>view_file</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="CheckBox_Div">
-                  <input type={"checkbox"} />
-                  <p>
-                    Porem Ipsum dot sit amiit. consetguvurr adpriit faltingn
-                  </p>
-                </div>
-                <div className="CheckBox_Div">
-                  <input type={"checkbox"} />
-                  <p>
-                    Lorem ipsum is a dummy text to shwo dummy text and spce for
-                    actual text to be decide in the future, here it shows the
-                    actual space for the text
-                  </p>
-                </div>
-              </div>
-            </>
+          <div className="pdf1" id="pdfcont">
+            <div className="pdf2">
+              <img src={img2} alt="" />
+            </div>
+            <div className="pdf3">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Payment Challan - RTGS/ NEFT/ IMPS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Beneficiary Name</td>
+                    <td>OUTWARD REMITTANCE POOL ACCOUNT</td>
+                  </tr>
+                  <tr>
+                    <td>Transaction Amount</td>
+                    <td>69,993/-</td>
+                  </tr>
+                  <tr>
+                    <td>Amount In Words</td>
+                    <td>Sixty nine thousand nine hundred ninty three</td>
+                  </tr>
+                  <tr>
+                    <td>Beneficiary Account Number</td>
+                    <td>0035SLORCBPC</td>
+                  </tr>
+                  <tr>
+                    <td>IFSC Code</td>
+                    <td>ICIC0000035</td>
+                  </tr>
+                  <tr>
+                    <td>IFSC Code</td>
+                    <td>ICIC0000035</td>
+                  </tr>
+                  <tr>
+                    <td>Bank Name</td>
+                    <td> ICICI BANK</td>
+                  </tr>
+                  <tr>
+                    <td>Account Type</td>
+                    <td>Current A/C</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="pdf3">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Customer Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Challan Created On</td>
+                    <td>22/5/2023</td>
+                  </tr>
+                  <tr>
+                    <td>CA Number</td>
+                    <td>1844209836</td>
+                  </tr>
+                  <tr>
+                    <td>Email Address</td>
+                    <td>test@cashfree.com</td>
+                  </tr>
+                  <tr>
+                    <td>Request ID/ Customer ID</td>
+                    <td>ergfnbytgfbtgrfbrgdfydrxdfvaregfdb</td>
+                  </tr>
+                  <tr>
+                    <td>Mobile No.</td>
+                    <td>987898786776</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-
-          <button
-            className="transaction_center_btn"
-            onClick={() => NextStep()}
-          >
+          <button className="pdf4" onClick={generatePdf}>Download Challan Copy</button>
+          <button className="transaction_center_btn" onClick={() => NextStep()}>
             Continue
           </button>
         </>

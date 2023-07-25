@@ -37,8 +37,8 @@ const ForeignCurrency = () => {
     const url = "https://akashdeep12.vercel.app/selectcity/cities";
     try {
       const res = await axios.get(url);
-      console.log(res?.data);
-      setCitys(res?.data);
+      console.log(res?.data?.data);
+      setCitys(res?.data?.data);
     } catch (err) {
       console.log(err.message);
     }

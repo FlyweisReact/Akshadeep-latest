@@ -39,7 +39,7 @@ const Travel = () => {
     try {
       const res = await axios.get(url);
       console.log(res?.data);
-      setCitys(res?.data);
+      setCitys(res?.data?.data);
     } catch (err) {
       console.log(err.message);
     }

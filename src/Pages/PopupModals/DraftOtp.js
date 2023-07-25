@@ -4,7 +4,7 @@ import axios from "axios";
 import { Store } from "react-notifications-component";
 import { useNavigate } from "react-router-dom";
 
-function BookOtp(props) {
+function DraftOtp(props) {
   const [otpModalShow, setOtpModalShow] = useState(false);
   const [mobile, setMobile] = useState("");
   const navigate = useNavigate();
@@ -46,8 +46,6 @@ function BookOtp(props) {
     }
   };
 
-
-
   return (
     <>
       <Modal
@@ -67,16 +65,18 @@ function BookOtp(props) {
                 onChange={(e) => setMobile(e.target.value)}
               />
             </div>
-            <button type="submit" className="submit_btn" onClick={()=>navigate("/Transaction-Details-5")}>
+            <button
+              type="submit"
+              className="submit_btn"
+              onClick={() => navigate("/Transaction-Details-6")}
+            >
               Continue
             </button>
-
           </form>
-        
         </Modal.Body>
       </Modal>
     </>
   );
 }
 
-export default BookOtp;
+export default DraftOtp;
