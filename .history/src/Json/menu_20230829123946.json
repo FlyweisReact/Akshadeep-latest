@@ -1,0 +1,156 @@
+[
+  {
+    "name": "Service",
+    "item": [
+      {
+        "name": "Currency Exchange",
+        "subItem": [
+            {
+                "itemName" : "Currency Exchange in Mumbai" ,
+                "link" : "/exchange"
+            },
+            {
+                "itemName" : "Currency Exchange in Kolkata"
+            },
+            {
+                "itemName" : "Currency Exchange in Chennai" 
+            },
+            {
+                "itemName" : "Currency Exchange in Hyderabad" 
+            },
+            {
+                "itemName" : "Currency Exchange in Pune" 
+            },
+            {
+                "itemName" : "Currency Exchange in Kolkata"
+            },
+            {
+                "itemName" : "Currency Exchange in Ahmedabad" 
+            },
+            {
+                "itemName" : "Currency Exchange in Gurgaon" 
+            },
+            {
+                "itemName" : "Currency Exchange in Noida" 
+            },
+            {
+                "itemName" : "Currency Exchange in Banglore" 
+            },
+            {
+                "itemName" : "More" 
+            }
+        ]
+      },
+      {
+        "name": "Send Money Abroad",
+        "subItem": [
+            {
+                "itemName" : "Send Money to USA" ,
+                "link" : "/Send_Money"
+            },
+            {
+                "itemName" : "Send Money to UK" 
+            },
+            {
+                "itemName" : "Send Money to Singpore" 
+            },
+            {
+                "itemName" : "Send Money to Australia" 
+            },
+            {
+                "itemName" : "Send Money to Canada" 
+            },
+            {
+                "itemName" : "Send Money to Germany" 
+            },
+            {
+                "itemName" : "Send Money to  New Zealand" 
+            },
+            {
+                "itemName" : "Send Money to  Europe  " 
+            },
+            {
+                "itemName" : "Send Money to  UAE  " 
+            },
+            {
+                "itemName" : "More" 
+            }
+        ]
+      },
+      {
+        "name": "Wire Transfer"
+      },
+      {
+        "name": "International Sim Card"
+      },
+      {
+        "name": "Trade Remittance"
+      },
+      {
+        "name": "Forex as a Service (Faas) Solution"
+      }
+    ]
+  },
+
+  {
+    "name": "Foreign Currencies",
+    "item": [
+      {
+        "name": "US Dollar",
+        "link" : "/exchange"
+      },
+      {
+        "name": "Euro  "
+      },
+      {
+        "name": "British Pound  "
+      },
+      {
+        "name": "Australian Dollar"
+      },
+
+      {
+        "name": "Canadian Dollar  "
+      },
+
+      {
+        "name": " Singapore Dollar "
+      },
+
+      {
+        "name": " New Zealand Dollar "
+      },
+      {
+        "name": " Hong Kong Dollar "
+      },
+      {
+        "name": " UAE Dollar "
+      },
+      {
+        "name": "Saudi Riyal  "
+      },
+      {
+        "name": " Swiss Franc "
+      },
+      {
+        "name": " Japanese Yen "
+      },
+      {
+        "name": "Thai Bhat  "
+      }
+    ]
+  },
+
+  {
+    "name": "FAQ"
+  },
+  {
+    "name": "Offers"
+  },
+  {
+    "name":"Contact Us"
+  },
+  {
+    "name":"About Us"
+  }
+]

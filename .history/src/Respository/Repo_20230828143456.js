@@ -1,0 +1,29 @@
+import { Store } from "react-notifications-component";
+
+
+const Baseurl = 'https://akashdeep12.vercel.app/'
+
+const user_Login = async () => {
+    try{
+
+    }catch(e) {
+        const msg = e.response.data.message
+        Store.addNotification({
+            title: "",
+            message: err.response.data.msg,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true,
+            },
+          });
+    }
+}
+
+
+
+export { user_Login }
