@@ -216,7 +216,6 @@ const UpperForm = () => {
                     <option
                       style={{ color: "#00000" }}
                       value={ele?.addcurrency}
-                      key={i}
                     >
                       {ele?.addcurrency}
                     </option>

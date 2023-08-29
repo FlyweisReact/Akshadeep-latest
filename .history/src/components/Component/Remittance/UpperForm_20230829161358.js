@@ -46,6 +46,7 @@ const UpperForm = () => {
         INRCurrencyName,
         recievingAmount,
       });
+      console.log(res?.data);
       if (monthlyImport_Export === "S1107") {
         navigate("/cash-free");
       } else navigate(`/Transaction-Details/${res?.data?._id}`);
@@ -73,11 +74,16 @@ const UpperForm = () => {
     if (amt === "") amt = 0;
     setForexAmt(amt);
     setReceivingAmt(amt);
+    console.log(amt);
     const url = `https://akashdeep12.vercel.app/betterRate/convertRate/${recievingCurrencyName}/${amt}`;
+    console.log(url);
     try {
       const res = await axios.get(url);
+      console.log(res?.data?.inrAmount);
       setInrAmt(res?.data?.inrAmount);
-    } catch{}
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const purposes = [
@@ -163,7 +169,7 @@ const UpperForm = () => {
                 <select onChange={(e) => setTransferFrom(e.target.value)}>
                   <option>Select City</option>
                   {cities?.map((ele, i) => (
-                    <option value={ele?._id} key={i} >{ele?.selectcity}</option>
+                    <option value={ele?._id}>{ele?.selectcity}</option>
                   ))}
                 </select>
               </div>
@@ -175,7 +181,7 @@ const UpperForm = () => {
                     Please select the option that best describes you
                   </option>
                   {cities?.map((ele, i) => (
-                    <option value={ele?._id} key={i} >{ele?.selectcity}</option>
+                    <option value={ele?._id}>{ele?.selectcity}</option>
                   ))}
                 </select>
               </div>
@@ -201,7 +207,6 @@ const UpperForm = () => {
                     <option
                       style={{ color: "#00000" }}
                       value={ele?.addcurrency}
-                      key={i}
                     >
                       {ele?.addcurrency}
                     </option>
@@ -216,7 +221,6 @@ const UpperForm = () => {
                     <option
                       style={{ color: "#00000" }}
                       value={ele?.addcurrency}
-                      key={i}
                     >
                       {ele?.addcurrency}
                     </option>

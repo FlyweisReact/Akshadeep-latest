@@ -77,7 +77,9 @@ const UpperForm = () => {
     try {
       const res = await axios.get(url);
       setInrAmt(res?.data?.inrAmount);
-    } catch{}
+    } catch (err) {
+      console.log(err.message);
+    }
   };
 
   const purposes = [
@@ -163,7 +165,7 @@ const UpperForm = () => {
                 <select onChange={(e) => setTransferFrom(e.target.value)}>
                   <option>Select City</option>
                   {cities?.map((ele, i) => (
-                    <option value={ele?._id} key={i} >{ele?.selectcity}</option>
+                    <option value={ele?._id}>{ele?.selectcity}</option>
                   ))}
                 </select>
               </div>
@@ -175,7 +177,7 @@ const UpperForm = () => {
                     Please select the option that best describes you
                   </option>
                   {cities?.map((ele, i) => (
-                    <option value={ele?._id} key={i} >{ele?.selectcity}</option>
+                    <option value={ele?._id}>{ele?.selectcity}</option>
                   ))}
                 </select>
               </div>
@@ -201,7 +203,6 @@ const UpperForm = () => {
                     <option
                       style={{ color: "#00000" }}
                       value={ele?.addcurrency}
-                      key={i}
                     >
                       {ele?.addcurrency}
                     </option>
@@ -216,7 +217,6 @@ const UpperForm = () => {
                     <option
                       style={{ color: "#00000" }}
                       value={ele?.addcurrency}
-                      key={i}
                     >
                       {ele?.addcurrency}
                     </option>
