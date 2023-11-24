@@ -848,8 +848,7 @@ const TransactionDetails = () => {
                 <p>Country of issue</p>
                 <input
                   type="text"
-                  value={countryOfIssue}
-                  onChange={(e) => setCountryOfIssue(e.target.value)}
+                  defaultValue={panResponse?.nationalityRemitter}
                 />
               </div>
             </div>

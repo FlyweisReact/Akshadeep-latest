@@ -848,8 +848,8 @@ const TransactionDetails = () => {
                 <p>Country of issue</p>
                 <input
                   type="text"
-                  value={countryOfIssue}
-                  onChange={(e) => setCountryOfIssue(e.target.value)}
+                  value={purposeOfIssue}
+                  onChange={(e) => setPurposeOfIssue(e.target.value)}
                 />
               </div>
             </div>

@@ -155,9 +155,10 @@ const upload_Documents = async (id, payload, purpose, navigate) => {
       payload
     );
     if (purpose === "Education Abroad") {
+      navigate("/bank_details");
       window.location.href = "https://merchant.cashfree.com/merchants/login";
     } else {
-      navigate("/bank_details");
+      window.location.href = "https://merchant.cashfree.com/merchants/login";
     }
     Store.addNotification({
       title: "",
@@ -323,12 +324,12 @@ export const get_loans = async (setResponse) => {
   } catch {}
 };
 
-export const get_loan_byId = async (id, setResponse) => {
-  try {
-    const res = await axios.get(`${localhost}studentLoan/${id}`);
-    setResponse(res.data);
-  } catch {}
-};
+export const get_loan_byId = async ( id ,  setResponse) => {
+  try{
+    const res = await axios.get(`${localhost}studentLoan/${id}`)
+    setResponse(res.data)
+  }catch{}
+}
 
 export {
   user_Login,

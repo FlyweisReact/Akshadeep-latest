@@ -831,11 +831,7 @@ const TransactionDetails = () => {
             <div className="four_sec mt-3">
               <div className="first">
                 <p>Place of issue</p>
-                <input
-                  type="text"
-                  value={purposeOfIssue}
-                  onChange={(e) => setPurposeOfIssue(e.target.value)}
-                />
+                <input type="text" defaultValue={panResponse?.descPurpose} />
               </div>
               <div className="first">
                 <p>Date of issue</p>
@@ -848,8 +844,7 @@ const TransactionDetails = () => {
                 <p>Country of issue</p>
                 <input
                   type="text"
-                  value={countryOfIssue}
-                  onChange={(e) => setCountryOfIssue(e.target.value)}
+                  defaultValue={panResponse?.nationalityRemitter}
                 />
               </div>
             </div>
