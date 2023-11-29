@@ -237,7 +237,8 @@ const TransactionDetail5 = () => {
                 </tbody>
               </table>
             </div>
-            {/* <div className="pdf3">
+            {console.log(info)}
+            <div className="pdf3">
               <table>
                 <thead>
                   <tr>
@@ -245,6 +246,10 @@ const TransactionDetail5 = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td>Challan Created On</td>
+                    <td>22/5/2023</td>
+                  </tr>
                   <tr>
                     <td>CA Number</td>
                     <td> {info?.CA_Number} </td>
@@ -259,11 +264,11 @@ const TransactionDetail5 = () => {
                   </tr>
                   <tr>
                     <td>Mobile No.</td>
-                    <td> {info?.phone} </td>
+                    <td>987898786776</td>
                   </tr>
                 </tbody>
               </table>
-            </div> */}
+            </div>
           </div>
           <button className="pdf4" onClick={generatePdf}>
             Download Challan Copy

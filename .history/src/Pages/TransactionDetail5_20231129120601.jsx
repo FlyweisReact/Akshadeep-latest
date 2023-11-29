@@ -237,6 +237,7 @@ const TransactionDetail5 = () => {
                 </tbody>
               </table>
             </div>
+            {console.log(info)}
             {/* <div className="pdf3">
               <table>
                 <thead>

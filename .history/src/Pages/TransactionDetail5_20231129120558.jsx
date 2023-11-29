@@ -237,7 +237,8 @@ const TransactionDetail5 = () => {
                 </tbody>
               </table>
             </div>
-            {/* <div className="pdf3">
+            {console.log(info)}
+            <div className="pdf3">
               <table>
                 <thead>
                   <tr>
@@ -263,7 +264,7 @@ const TransactionDetail5 = () => {
                   </tr>
                 </tbody>
               </table>
-            </div> */}
+            </div>
           </div>
           <button className="pdf4" onClick={generatePdf}>
             Download Challan Copy

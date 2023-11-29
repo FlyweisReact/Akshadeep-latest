@@ -202,15 +202,7 @@ const TransactionDetail5 = () => {
                   </tr>
                   <tr>
                     <td>Branch </td>
-                    <td> Connaught Place New Delhi</td>
-                  </tr>
-                  <tr>
-                    <td> IFSC Code </td>
-                    <td>UTIB0002193</td>
-                  </tr>
-                  <tr>
-                    <td>Account Type</td>
-                    <td>Current A/C</td>
+                    <td> Connaught place new delhi</td>
                   </tr>
                   {/* <tr>
                     <td>Transaction Amount</td>
@@ -233,11 +225,14 @@ const TransactionDetail5 = () => {
                     <td>Bank Name</td>
                     <td> {info?.bankNameAndAddress} </td>
                   </tr>
-                > */}
+                  <tr>
+                    <td>Account Type</td>
+                    <td>Current A/C</td>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
-            {/* <div className="pdf3">
+            <div className="pdf3">
               <table>
                 <thead>
                   <tr>
@@ -245,6 +240,10 @@ const TransactionDetail5 = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td>Challan Created On</td>
+                    <td>22/5/2023</td>
+                  </tr>
                   <tr>
                     <td>CA Number</td>
                     <td> {info?.CA_Number} </td>
@@ -255,15 +254,15 @@ const TransactionDetail5 = () => {
                   </tr>
                   <tr>
                     <td>Request ID/ Customer ID</td>
-                    <td> {info?.customerID} </td>
+                    <td>ergfnbytgfbtgrfbrgdfydrxdfvaregfdb</td>
                   </tr>
                   <tr>
                     <td>Mobile No.</td>
-                    <td> {info?.phone} </td>
+                    <td>987898786776</td>
                   </tr>
                 </tbody>
               </table>
-            </div> */}
+            </div>
           </div>
           <button className="pdf4" onClick={generatePdf}>
             Download Challan Copy

@@ -246,6 +246,10 @@ const TransactionDetail5 = () => {
                 </thead>
                 <tbody>
                   <tr>
+                    <td>Challan Created On</td>
+                    <td>22/5/2023</td>
+                  </tr>
+                  <tr>
                     <td>CA Number</td>
                     <td> {info?.CA_Number} </td>
                   </tr>
@@ -255,11 +259,11 @@ const TransactionDetail5 = () => {
                   </tr>
                   <tr>
                     <td>Request ID/ Customer ID</td>
-                    <td> {info?.customerID} </td>
+                    <td>ergfnbytgfbtgrfbrgdfydrxdfvaregfdb</td>
                   </tr>
                   <tr>
                     <td>Mobile No.</td>
-                    <td> {info?.phone} </td>
+                    <td>987898786776</td>
                   </tr>
                 </tbody>
               </table>
