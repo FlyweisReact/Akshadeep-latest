@@ -6,7 +6,7 @@ import { Login } from "../store/slices/authSlice";
 
 const Baseurl = "https://akashdeep-backend.vercel.app/";
 
-const localhost = "https://akashdeep-backend.vercel.app/";
+const localhost = "http://localhost:2005/";
 
 const user_Login = (payload) => {
   return async (dispatch) => {
