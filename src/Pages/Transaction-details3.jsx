@@ -1,116 +1,38 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import img from "../Images/30.png";
 import img2 from "../Images/rectangle-341.png";
 import img3 from "../Images/uploadimg.png";
 import "react-phone-input-2/lib/style.css";
-import PhoneInput from "react-phone-input-2";
 import { useNavigate } from "react-router-dom";
-import { notification } from "antd";
-import axios from "axios";
+
+const data = [" Order Details", "Document Upload", "Calculation Bifurcation"];
 
 const TransactionDetail3 = () => {
   const [step, setStep] = useState(2);
   const navigate = useNavigate();
 
-  /* remitter data */
-  const [remitter_id, setRemitterId] = useState("");
-  const [purpose, setPurpose] = useState("");
-  const [account_number, setAccNum] = useState("");
-  const [ifsc, setIfsc] = useState("");
-  const [pan, setPan] = useState("");
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postal_code, setPostal] = useState("");
-  const [phone_number, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [education_loan, setEducationLoan] = useState(false);
-  const [nationality, setNationality] = useState("");
-  const [bank_code, setBank] = useState("");
+  //
+  const [passportFront, setPasswordFront] = useState("");
+  const [passportBack, setPasswordBack] = useState("");
+  const [air, setAir] = useState("");
+  const [Visa, setVisa] = useState("");
+  const [panCard, setPanCard] = useState("");
 
-  /* beneficiary data */
-
-  const [beneficiary_id, setBenId] = useState("");
-  const [account_holder_name, setAccount] = useState("");
-  const [account_number2, setAccountNumber] = useState("");
-  const [swift_code, setSwiftCode] = useState("");
-  const [iban, setIban] = useState("");
-  const [routing_number, setRoutingNumber] = useState("");
-  const [bank_name, setBankName] = useState("");
-  const [bank_country, setBankCountry] = useState("");
-  const [bank_address, setBankAddress] = useState("");
-  const [sort_code, setSortCode] = useState("");
-  const [transit_code, setTransitCode] = useState("");
-  const [bsb_number, setBsbNumber] = useState("");
-  const [address2, setAddress2] = useState("");
-  const [city2, setCity2] = useState("");
-  const [state2, setState2] = useState("");
-  const [country, setCountry] = useState("");
-  const [postal_code2, setPostalCode] = useState("");
-  const data = [" Order Details", "Document Upload", "Calculation Bifurcation"];
+  const fd = new FormData();
+  fd.append("passportFront", passportFront);
+  fd.append("passportBack", passportBack);
+  fd.append("air", air);
+  fd.append("Visa", Visa);
+  fd.append("panCard", panCard);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   async function NextStep() {
-    console.log(step);
-    if (step === 3) {
-      const url = "https://akashdeep12.vercel.app/remi";
-      try {
-        const { data } = await axios.post(url, {
-          remitter_id,
-          purpose,
-          account_number,
-          ifsc,
-          pan,
-          name,
-          address,
-          city,
-          state,
-          postal_code,
-          phone_number,
-          email,
-          education_loan,
-          nationality,
-          bank_code,
-        });
-        console.log(data);
-        //setStep(step + 1);
-      } catch (err) {
-        console.log(err?.message);
-      }
-    }
-    if (step === 4) {
-      const url = "https://akashdeep12.vercel.app/bene";
-      const url2 = "http://192.168.101.19:2004/bene";
-      try {
-        const res = await axios.post(url, {
-          beneficiary_id,
-          account_holder_name,
-          account_number: account_number2,
-          swift_code,
-          iban,
-          routing_number,
-          bank_name,
-          bank_country,
-          bank_address,
-          sort_code,
-          transit_code,
-          bsb_number,
-          address: address2,
-          city: city2,
-          state: state2,
-          country,
-          postal_code: postal_code2,
-        });
-        console.log(res?.data);
-      } catch (err) {
-        console.log(err.message);
-      }
-    }
     setStep(step + 1);
     window.scrollTo(0, 0);
   }
@@ -166,7 +88,6 @@ const TransactionDetail3 = () => {
           <div className="transaction_details">
             <>
               <div className="form-3-cont mt-5">
-
                 <div className="form-3-cont-below">
                   <h3>Documents Required</h3>
                   <div className="form-grp-2-below-cont">

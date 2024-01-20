@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Records from "../../Json/menu.json";
 import Sidebar from "./Sidebar";
 import Offcanvas from "react-bootstrap/Offcanvas";
+import { HashLink } from "react-router-hash-link";
 
 const DropBar = () => {
   const navigate = useNavigate();
@@ -64,9 +65,9 @@ const DropBar = () => {
                 </Dropdown.Menu>
               </Dropdown>
             ) : i.type === "href" ? (
-              <a href={i.link} className="Links">
+              <HashLink smooth to={i.link} className="Links">
                 {i.name}
-              </a>
+              </HashLink>
             ) : (
               <Link to={i.link} className="Links">
                 {i.name}

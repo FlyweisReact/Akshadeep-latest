@@ -30,6 +30,7 @@ import "./Style/Footer.css";
 import "./Style/Responsive.css";
 import "./Style/Mobile.css";
 import BankDetails from "./Pages/BankDetails";
+
 function App() {
   return (
     <>

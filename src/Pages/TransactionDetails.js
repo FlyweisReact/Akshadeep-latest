@@ -5,6 +5,9 @@ import Header from "../components/Layout/Header";
 import img from "../Images/30.png";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  fetchCountryStates,
+  fetchStateCities,
+  getCountries,
   get_all_types,
   pan_Validation,
   RemitterDetail,
@@ -14,7 +17,7 @@ import {
 } from "../Respository/Repo";
 
 const TransactionDetails = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(6);
   const navigate = useNavigate();
   const { id } = useParams();
   const [panResponse, setPanResponse] = useState({});
@@ -63,6 +66,7 @@ const TransactionDetails = () => {
   const [purposeOfIssue, setPurposeOfIssue] = useState("");
   const [dateOfIssue, setDateOfIssue] = useState("");
   const [countryOfIssue, setCountryOfIssue] = useState("");
+  const [document, setDocument] = useState("");
 
   const data = [
     " Order Details",
@@ -185,48 +189,89 @@ const TransactionDetails = () => {
     }
   }, [panResponse]);
 
-  console.log(panResponse)
-  console.log(panResponse?.recievingAmount)
-  console.log(exchangeRate)
-
   const validatePin = async (e) => {
     e.preventDefault();
     const payload = { pan: panNum };
     await pan_Validation(id, payload, setPanResponse);
   };
 
-  const documentPayload = {
-    documentName,
-    documentNumber,
-    city,
-    purposeOfIssue,
-    dateOfIssue,
-    countryOfIssue,
-  };
-
   const documentHandler = async () => {
-    await upload_Documents(
-      id,
-      documentPayload,
-      panResponse?.descPurpose,
-      navigate
-    );
+    const fd = new FormData();
+    fd.append("document", document);
+    fd.append("documentName", documentName);
+    fd.append("documentNumber", documentNumber);
+    fd.append("city", city);
+    fd.append("purposeOfIssue", purposeOfIssue);
+    fd.append("dateOfIssue", dateOfIssue);
+    fd.append("countryOfIssue", countryOfIssue);
+
+    await upload_Documents(id, fd, panResponse?.descPurpose, navigate);
   };
 
   //----
   const [cityArr, setCityArr] = useState([]);
   const [countryArr, setCountryArr] = useState([]);
   const [stateArr, setStateArr] = useState([]);
-
-  const fetchHandler = () => {
-    get_all_types(setCityArr, "city");
-    get_all_types(setCountryArr, "country");
-    get_all_types(setStateArr, "state");
-  };
+  const [countryId, setCountryId] = useState("");
+  const [stateId, setStateId] = useState("");
 
   useEffect(() => {
-    fetchHandler();
+    get_all_types(setCountryArr, "country");
   }, []);
+
+  useEffect(() => {
+    if (countryId) {
+      fetchCountryStates({ setResponse: setStateArr, id: countryId });
+    }
+  }, [countryId]);
+
+  useEffect(() => {
+    if (stateId) {
+      fetchStateCities({ setResponse: setCityArr, id: stateId });
+    }
+  }, [stateId]);
+
+  function state_handler(i) {
+    const obj = JSON.parse(i);
+    setStateRemitter(obj.selectcity);
+    setStateId(obj._id);
+  }
+
+  function country_handler(i) {
+    const obj = JSON.parse(i);
+    setNationalityRemitter(obj.selectcity);
+    setCountryId(obj._id);
+  }
+
+  function country_handler_2(i) {
+    const obj = JSON.parse(i);
+    setCountryBeneficiary(obj.selectcity);
+    setCountryId(obj._id);
+  }
+  function state_handler_2(i) {
+    const obj = JSON.parse(i);
+    setStateBeneficiary(obj.selectcity);
+    setStateId(obj._id);
+  }
+
+  const clear_fields = () => {
+    setBenficiaryId("");
+    setAccountHolderName("");
+    setSortCode("");
+    setTransitCode("");
+    setBsbNumber("");
+    setRoutingNumber("");
+    setRecieverAddress("");
+    setPinCodeBeneficaiary("");
+    setEmailIdBeneficiary("");
+    setRecieverBankName("");
+    setRecieverBankCountry("");
+    setRecieverBankSwiftCode("");
+    setRecieverBankAddress1("");
+    setReciverBankAddress2("");
+    setRecieverAccountNumber("");
+    setCityBeneficiary("");
+  };
 
   return (
     <>
@@ -273,7 +318,6 @@ const TransactionDetails = () => {
         )}
       </div>
 
-      {/* Step 1 */}
       {step === 2 ? (
         <>
           <div className="transaction_details">
@@ -323,8 +367,6 @@ const TransactionDetails = () => {
       ) : (
         ""
       )}
-
-      {/* Step 2 */}
 
       {step === 3 ? (
         <>
@@ -399,12 +441,29 @@ const TransactionDetails = () => {
 
             <div className="four_sec mb-3">
               <div className="first">
-                <p>Postal Code</p>
-                <input
-                  type="text"
-                  value={postCodeRemitter}
-                  onChange={(e) => setpostCodeRemitter(e.target.value)}
-                />
+                <p>Nationality</p>
+                <select onChange={(e) => country_handler(e.target.value)}>
+                  <option>-- Select Nationality --</option>
+                  {countryArr?.map((i, index) => (
+                    <option key={`city${index}`} value={JSON.stringify(i)}>
+                      {" "}
+                      {i.selectcity}{" "}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="first">
+                <p>State</p>
+                <select onChange={(e) => state_handler(e.target.value)}>
+                  <option>-- Select State --</option>
+                  {stateArr?.map((i, index) => (
+                    <option key={`city${index}`} value={JSON.stringify(i)}>
+                      {" "}
+                      {i.selectcity}{" "}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="first">
                 <p>City</p>
@@ -418,40 +477,15 @@ const TransactionDetails = () => {
                   ))}
                 </select>
               </div>
-              <div className="first">
-                <p>State</p>
-                <select onChange={(e) => setStateRemitter(e.target.value)}>
-                  <option>-- Select State --</option>
-                  {stateArr?.map((i, index) => (
-                    <option key={`city${index}`} value={i.selectcity}>
-                      {" "}
-                      {i.selectcity}{" "}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
 
-            <div className="four_sec mb-3">
               <div className="first">
-                <p>Nationality</p>
-                <select
-                  onChange={(e) => setNationalityRemitter(e.target.value)}
-                >
-                  <option>-- Select Nationality --</option>
-                  {countryArr?.map((i, index) => (
-                    <option key={`city${index}`} value={i.selectcity}>
-                      {" "}
-                      {i.selectcity}{" "}
-                    </option>
-                  ))}
-                </select>
+                <p>Postal Code</p>
+                <input
+                  type="text"
+                  value={postCodeRemitter}
+                  onChange={(e) => setpostCodeRemitter(e.target.value)}
+                />
               </div>
-              <div className="first"></div>
-              <div className="first"></div>
-            </div>
-
-            <div className="four_sec mb-3">
               <div className="first">
                 <p>Email ID</p>
                 <input
@@ -481,7 +515,6 @@ const TransactionDetails = () => {
         ""
       )}
 
-      {/* Step 3 */}
       {step === 4 ? (
         <>
           <div className="transaction_details">
@@ -560,14 +593,11 @@ const TransactionDetails = () => {
                 <div className="item mb-3">
                   <div>
                     <p>Country</p>
-                    <select
-                      onChange={(e) => setCountryBeneficiary(e.target.value)}
-                    >
+                    <select onChange={(e) => country_handler_2(e.target.value)}>
                       <option>Select</option>
                       {countryArr?.map((i, index) => (
-                        <option key={`city${index}`} value={i.selectcity}>
-                          {" "}
-                          {i.selectcity}{" "}
+                        <option key={`city${index}`} value={JSON.stringify(i)}>
+                          {i.selectcity}
                         </option>
                       ))}
                     </select>
@@ -583,11 +613,15 @@ const TransactionDetails = () => {
                 <div className="item">
                   <div>
                     <p>State</p>
-                    <input
-                      type="text"
-                      value={stateBeneficiary}
-                      onChange={(e) => setStateBeneficiary(e.target.value)}
-                    />
+                    <select onChange={(e) => state_handler_2(e.target.value)}>
+                      <option>-- Select State --</option>
+                      {stateArr?.map((i, index) => (
+                        <option key={`city${index}`} value={JSON.stringify(i)}>
+                          {" "}
+                          {i.selectcity}{" "}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>
@@ -657,16 +691,25 @@ const TransactionDetails = () => {
               </div>
               <div className="first special">
                 <p>City </p>
-                <input
-                  type="text"
+                <select
                   value={cityBeneficiary}
                   onChange={(e) => setCityBeneficiary(e.target.value)}
-                />
+                >
+                  <option>-- Select City --</option>
+                  {cityArr?.map((i, index) => (
+                    <option key={`city${index}`} value={i.selectcity}>
+                      {" "}
+                      {i.selectcity}{" "}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
             <div className="last_btn">
-              <button className="btn">Clear</button>
+              <button className="btn" onClick={clear_fields}>
+                Clear
+              </button>
               <button onClick={() => NextStep()}>Submit</button>
             </div>
           </div>
@@ -675,7 +718,6 @@ const TransactionDetails = () => {
         ""
       )}
 
-      {/* Step 5 */}
       {step === 5 ? (
         <>
           <div className="transaction_details">
@@ -694,7 +736,7 @@ const TransactionDetails = () => {
                 <p>Transfer Amount in FCY</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  {chargeData?.transferAmountInFCY}
+                  {chargeData?.recievingAmount}
                 </p>
               </div>
 
@@ -702,7 +744,7 @@ const TransactionDetails = () => {
                 <p>Total Funding Amount in INR</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  {chargeData?.totalFundingInINR}
+                  {chargeData?.convertedAmount}
                 </p>
               </div>
             </div>
@@ -751,20 +793,19 @@ const TransactionDetails = () => {
               </div>
 
               <div className="first">
-                <p>Total Funding Amount in INR</p>
+                <p>Total of all Charges and Taxes</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  {chargeData?.totalFundingInINR}
+                  {chargeData?.TotalOfAllCharges}
                 </p>
               </div>
             </div>
 
             <div className="four_sec mb-3 " style={{ marginTop: "3%" }}>
               <div className="first">
-                <p>Total of all Charges and Taxes</p>
-
+                <p>Total Funding Amount in INR</p>
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  {chargeData?.TotalOfAllCharges}
+                  {chargeData?.totalFundingInINR}
                 </p>
               </div>
             </div>
@@ -777,8 +818,6 @@ const TransactionDetails = () => {
       ) : (
         ""
       )}
-
-      {/* Step 1 */}
       {step === 6 ? (
         <>
           <div className="transaction_details">
@@ -830,8 +869,6 @@ const TransactionDetails = () => {
                   ))}
                 </select>
               </div>
-            </div>
-            <div className="four_sec mt-3">
               <div className="first">
                 <p>Place of issue</p>
                 <input
@@ -853,6 +890,13 @@ const TransactionDetails = () => {
                   type="text"
                   value={countryOfIssue}
                   onChange={(e) => setCountryOfIssue(e.target.value)}
+                />
+              </div>
+              <div className="first">
+                <p>Document</p>
+                <input
+                  type="file"
+                  onChange={(e) => setDocument(e.target.files[0])}
                 />
               </div>
             </div>

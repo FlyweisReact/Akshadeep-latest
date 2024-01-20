@@ -53,6 +53,10 @@ html{
 .navbar-1 {
   width: 100%;
 }
+
+.rnc__notification-message {
+ font-family: QuickSand !important; 
+}
 .navbar-1 .nav-top {
   display: flex;
   justify-content: space-between;

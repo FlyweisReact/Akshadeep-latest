@@ -853,4 +853,19 @@
   .Index_testimonial_Slider .content_div p {
     font-size: var(--tab-subheading-font);
   }
+  .bank_details .special {
+    display: block;
+
+  }
+  .bank_details .in_row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .bank_details .in_row .indi{
+    width: 100%;
+  }
+  .bank_details .in_row .indi.special{
+    width: 100%;
+  }
 }

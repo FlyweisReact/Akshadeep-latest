@@ -41,7 +41,7 @@ const BankDetails = () => {
 
         <div className="in_row">
           <div className="indi special">
-            <p >BRANCH </p>
+            <p>BRANCH </p>
           </div>
           <div className="indi">
             <p>THANE</p>
@@ -50,7 +50,7 @@ const BankDetails = () => {
 
         <div className="in_row">
           <div className="indi special">
-            <p>BANK  </p>
+            <p>BANK </p>
           </div>
           <div className="indi">
             <p>ICICI BANK</p>
@@ -58,10 +58,21 @@ const BankDetails = () => {
         </div>
         <div className="in_row">
           <div className="indi special">
-            <p>ACCOUNT TYPE  </p>
+            <p>ACCOUNT TYPE </p>
           </div>
           <div className="indi">
             <p>CURRENT A/C </p>
+          </div>
+        </div>
+        <div className="in_row">
+          <div
+            className="indi special"
+            style={{ width: "100%", textAlign: "center" }}
+          >
+            <p>
+              Note: Kindly do RTGS/NEFT/IMPS from your account as per details
+              mentioned below.{" "}
+            </p>
           </div>
         </div>
       </div>

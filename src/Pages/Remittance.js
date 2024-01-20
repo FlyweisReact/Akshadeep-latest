@@ -17,25 +17,14 @@ import logo from "../Images/logo.png";
 import img3 from "../Images/a-12.png";
 import img4 from "../Images/a-11.png";
 import img5 from "../Images/a-10.png";
-import { Store } from "react-notifications-component";
+import { showNotification } from "../Respository/Repo";
 
 const Remittance = () => {
- 
- 
   useEffect(() => {
     window.scrollTo(0, 0);
-    Store.addNotification({
-      title: "",
+    showNotification({
       message: "This Service is available in PAN INDIA",
       type: "info",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 5000,
-        onScreen: true,
-      },
     });
   }, []);
 

@@ -275,11 +275,6 @@ const TransactionDetail5 = () => {
       ) : (
         ""
       )}
-      {/* Step 3 */}
-
-      {/* Step 5 */}
-
-      {/* Step 1 */}
     </>
   );
 };
