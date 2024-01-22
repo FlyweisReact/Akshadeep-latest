@@ -346,16 +346,38 @@ export const fetchStateCities = async ({ setResponse, id }) => {
   } catch {}
 };
 
-export const upload_document = async () => {
+export const upload_document = async (id, payload, setResponse) => {
   try {
-    const res = await axios.put(`${Baseurl}`);
+    const res = await axios.put(
+      `${Baseurl}reload_prepaidtravelcard/${id}`,
+      payload
+    );
+    setResponse(res.data);
   } catch {}
 };
 
-export const remittance_order = async (payload) => {
+export const remittance_order = async (payload, navigate) => {
   try {
     const res = await axios.post(`${Baseurl}Buy_prepaidtravelcard`, payload);
-    console.log(res);
+    const id = res.data._id;
+    navigate(`/Transaction-Details-3/${id}`);
+  } catch {}
+};
+
+export const getPurpose = async (setResponse) => {
+  try {
+    const res = await axios.get(`${Baseurl}purposee`);
+    setResponse(res.data.msg);
+  } catch {}
+};
+
+export const uploadImage = async (payload, setResponse) => {
+  try {
+    const res = await axios.post(
+      `${Baseurl}reload_prepaidtravelcard/uploadImage`,
+      payload
+    );
+    setResponse(res.data.data);
   } catch {}
 };
 

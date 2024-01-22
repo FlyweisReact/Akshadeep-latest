@@ -6,40 +6,89 @@ import img from "../Images/30.png";
 import img2 from "../Images/rectangle-341.png";
 import img3 from "../Images/uploadimg.png";
 import "react-phone-input-2/lib/style.css";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { uploadImage, upload_document } from "../Respository/Repo";
+import { Modal } from "react-bootstrap";
 const data = [" Order Details", "Document Upload", "Calculation Bifurcation"];
+
+// Image Modal
 
 const TransactionDetail3 = () => {
   const [step, setStep] = useState(2);
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  //
   const [passportFront, setPasswordFront] = useState("");
   const [passportBack, setPasswordBack] = useState("");
   const [air, setAir] = useState("");
   const [Visa, setVisa] = useState("");
   const [panCard, setPanCard] = useState("");
+  const [details, setDetails] = useState({});
+  const [uplodedImage, setImg] = useState("");
+  const [open, setOpen] = useState(false);
 
-  const fd = new FormData();
-  fd.append("passportFront", passportFront);
-  fd.append("passportBack", passportBack);
-  fd.append("air", air);
-  fd.append("Visa", Visa);
-  fd.append("panCard", panCard);
+  const payload = {
+    uploadPanCard: panCard,
+    PassportFront: passportFront,
+    PassportBack: passportBack,
+    airTicket: air,
+    validVisa: Visa,
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   async function NextStep() {
+    if (step === 2) {
+      upload_document(id, payload, setDetails);
+    }
     setStep(step + 1);
     window.scrollTo(0, 0);
   }
 
+  function ImageSelector(id) {
+    document.getElementById(id).click();
+  }
+
+  function imageUpload(image, setValue) {
+    const fd = new FormData();
+    fd.append("image", image);
+    uploadImage(fd, setValue);
+  }
+
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        {...props}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <img
+            src={uplodedImage}
+            alt=""
+            style={{
+              display: "block",
+              margin: "auto",
+              maxWidth: "100%",
+              width: "auto",
+              height: "auto",
+            }}
+          />
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
+  function openModal(imageUrl) {
+    setImg(imageUrl);
+    setOpen(true);
+  }
   return (
     <>
       <Header />
+      <MyVerticallyCenteredModal show={open} onHide={() => setOpen(false)} />
 
       <div className="transaction_steps">
         {[1, 2, 3].map((number) => (
@@ -99,11 +148,29 @@ const TransactionDetail3 = () => {
                       <div className="portn1-r">
                         <p className="portp">Pan Card</p>
                         <div className="portn1-r-bot">
-                          <button className="portn-btn">
+                          <input
+                            type="file"
+                            id="pan"
+                            onChange={(e) => {
+                              imageUpload(e.target.files[0], setPanCard);
+                            }}
+                            className="d-none"
+                          />
+                          <button
+                            className="portn-btn"
+                            onClick={() => {
+                              ImageSelector("pan");
+                            }}
+                          >
                             Upload
                             <img src={img3} alt="" />
                           </button>
-                          <p>view_file</p>
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => openModal(panCard)}
+                          >
+                            view_file
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -114,11 +181,27 @@ const TransactionDetail3 = () => {
                       <div className="portn1-r">
                         <p className="portp">Passport (Front Side)</p>
                         <div className="portn1-r-bot">
-                          <button className="portn-btn">
+                          <input
+                            type="file"
+                            id="passportFront"
+                            onChange={(e) => {
+                              imageUpload(e.target.files[0], setPasswordFront);
+                            }}
+                            className="d-none"
+                          />
+                          <button
+                            className="portn-btn"
+                            onClick={() => ImageSelector("passportFront")}
+                          >
                             Upload
                             <img src={img3} alt="" />
                           </button>
-                          <p>view_file</p>
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => openModal(passportFront)}
+                          >
+                            view_file
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -129,11 +212,27 @@ const TransactionDetail3 = () => {
                       <div className="portn1-r">
                         <p className="portp">Passport (Back Side)</p>
                         <div className="portn1-r-bot">
-                          <button className="portn-btn">
+                          <input
+                            type="file"
+                            id="passportBack"
+                            onChange={(e) => {
+                              imageUpload(e.target.files[0], setPasswordBack);
+                            }}
+                            className="d-none"
+                          />
+                          <button
+                            className="portn-btn"
+                            onClick={() => ImageSelector("passportBack")}
+                          >
                             Upload
                             <img src={img3} alt="" />
                           </button>
-                          <p>view_file</p>
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => openModal(passportBack)}
+                          >
+                            view_file
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -144,11 +243,27 @@ const TransactionDetail3 = () => {
                       <div className="portn1-r">
                         <p className="portp">Air Ticket (60 Days)</p>
                         <div className="portn1-r-bot">
-                          <button className="portn-btn">
+                          <input
+                            type="file"
+                            id="Air"
+                            onChange={(e) => {
+                              imageUpload(e.target.files[0], setAir);
+                            }}
+                            className="d-none"
+                          />
+                          <button
+                            className="portn-btn"
+                            onClick={() => ImageSelector("Air")}
+                          >
                             Upload
                             <img src={img3} alt="" />
                           </button>
-                          <p>view_file</p>
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => openModal(air)}
+                          >
+                            view_file
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -159,11 +274,27 @@ const TransactionDetail3 = () => {
                       <div className="portn1-r">
                         <p className="portp">Valid Visa</p>
                         <div className="portn1-r-bot">
-                          <button className="portn-btn">
+                          <input
+                            type="file"
+                            id="visa"
+                            onChange={(e) => {
+                              imageUpload(e.target.files[0], setVisa);
+                            }}
+                            className="d-none"
+                          />
+                          <button
+                            className="portn-btn"
+                            onClick={() => ImageSelector("visa")}
+                          >
                             Upload
                             <img src={img3} alt="" />
                           </button>
-                          <p>view_file</p>
+                          <p
+                            className="cursor-pointer"
+                            onClick={() => openModal(Visa)}
+                          >
+                            view_file
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -206,7 +337,7 @@ const TransactionDetail3 = () => {
                 <p>Exchange Rate</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.exchangeRate}
                 </p>
               </div>
 
@@ -214,7 +345,7 @@ const TransactionDetail3 = () => {
                 <p>Transfer Amount in FCY</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.transferAmountInFCY}
                 </p>
               </div>
 
@@ -222,7 +353,7 @@ const TransactionDetail3 = () => {
                 <p>Total Funding Amount in INR</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.TotalFundingAmtInINR}
                 </p>
               </div>
             </div>
@@ -232,7 +363,7 @@ const TransactionDetail3 = () => {
                 <p>Remittance Service Charge</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.RemittanceServiceCharge}
                 </p>
               </div>
 
@@ -240,7 +371,7 @@ const TransactionDetail3 = () => {
                 <p>GST on Charge</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.GstOnCharge}
                 </p>
               </div>
 
@@ -248,7 +379,7 @@ const TransactionDetail3 = () => {
                 <p>GST on Currency Conversion</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.GstOnCurrencyConversion}
                 </p>
               </div>
             </div>
@@ -258,7 +389,7 @@ const TransactionDetail3 = () => {
                 <p>TCS</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.TCS}
                 </p>
               </div>
 
@@ -266,7 +397,7 @@ const TransactionDetail3 = () => {
                 <p>TCS Flag</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.TCS_flag}
                 </p>
               </div>
 
@@ -274,7 +405,7 @@ const TransactionDetail3 = () => {
                 <p>Total Funding Amount in INR</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.TotalFundingAmtInINR}
                 </p>
               </div>
             </div>
@@ -284,7 +415,7 @@ const TransactionDetail3 = () => {
                 <p>Total of all Charges and Taxes</p>
 
                 <p className="mt-3" style={{ fontWeight: "bold" }}>
-                  83.2300
+                  {details?.TotalOfAllChargesAndTaxes}
                 </p>
               </div>
             </div>
@@ -292,7 +423,7 @@ const TransactionDetail3 = () => {
 
           <button
             className="transaction_center_btn"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/bank_details")}
           >
             Continue
           </button>
@@ -300,12 +431,6 @@ const TransactionDetail3 = () => {
       ) : (
         ""
       )}
-
-      {/* Step 3 */}
-
-      {/* Step 5 */}
-
-      {/* Step 1 */}
     </>
   );
 };

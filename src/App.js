@@ -55,7 +55,7 @@ function App() {
           <Route path="/student-loan/:id" element={<StudentLoan />} />
           <Route path="/rate" element={<Rate />} />
           <Route
-            path="/Transaction-Details-3"
+            path="/Transaction-Details-3/:id"
             element={<TransactionDetail3 />}
           />
           <Route

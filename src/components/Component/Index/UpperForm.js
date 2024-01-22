@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { remittance_order } from "../../../Respository/Repo";
+import { getPurpose, remittance_order } from "../../../Respository/Repo";
 
 const UpperForm = () => {
   const navigate = useNavigate();
@@ -17,6 +17,8 @@ const UpperForm = () => {
   // new fields
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("");
+  const [purposeArr, setPurposeArr] = useState([]);
+  const [purpose, setPurpose] = useState("");
 
   const getCities = async () => {
     const url = "https://akashdeep12.vercel.app/selectcity/cities";
@@ -51,17 +53,19 @@ const UpperForm = () => {
   useEffect(() => {
     getCities();
     getCurrencies();
+    getPurpose(setPurposeArr);
   }, []);
 
   const payload = {
     selectCity: selectedCity,
     currency: selectedCurrency,
     forexAmount,
+    purpose
   };
 
   const submit_handler = (e) => {
-    e.preventDefault()
-    remittance_order(payload);
+    e.preventDefault();
+    remittance_order(payload , navigate);
   };
 
   const cityHandler = (i) => {
@@ -113,6 +117,19 @@ const UpperForm = () => {
                     {currency?.map((ele) => (
                       <option id={ele?._id} value={JSON.stringify(ele)}>
                         {ele?.addcurrency}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="two-cont" style={{ display: "block" }}>
+                <div className="mb-3" style={{ width: "100%" }}>
+                  <label>Purpose</label>
+                  <select onChange={(e) => setPurpose(e.target.value)} required>
+                    <option value="">Select</option>
+                    {purposeArr?.map((ele, i) => (
+                      <option key={i} value={ele._id}>
+                        {ele?.desc}
                       </option>
                     ))}
                   </select>
